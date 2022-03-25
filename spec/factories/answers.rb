@@ -3,11 +3,9 @@ FactoryBot.define do
     body { 'foo' }
 
     question
-  end
 
-  factory :invalid_answer, class: 'Answer' do 
-    body { nil }
-
-    question
+    factory :invalid_answer  do 
+      body { nil }
+    end
   end
 end
