@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'view questions', %q{
+feature 'view all questions', %q{
   In order to know what questions already exist
   As an user 
   I want to be able to view all questions
