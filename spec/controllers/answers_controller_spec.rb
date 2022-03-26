@@ -23,7 +23,7 @@ describe AnswersController do
 
       it 'redirects to show' do 
         post :create, params: { question_id: question, answer: attributes_for(:answer) }
-        expect(response).to redirect_to question_answer_path(assigns(:answer), question)
+        expect(response).to redirect_to question_path(question)
       end
     end
 
