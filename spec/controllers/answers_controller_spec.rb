@@ -4,6 +4,7 @@ describe AnswersController do
   let(:question) { create(:question) }
 
   describe 'GET #new' do
+    log_in_user
     before { get :new, params: { question_id: question } } 
 
     it 'assigns a new answer to @answer' do 
@@ -16,6 +17,8 @@ describe AnswersController do
   end
 
   describe 'POST #create' do 
+    log_in_user
+    
     context 'with valid attributes' do 
       it 'saves the new answer in the database' do 
         expect{ post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(question.answers, :count).by(1)
