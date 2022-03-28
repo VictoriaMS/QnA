@@ -1,0 +1,4 @@
+= link_to question.title, question_path(question)
+= question.body
+= link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}"
+br
