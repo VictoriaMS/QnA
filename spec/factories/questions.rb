@@ -4,12 +4,13 @@ FactoryBot.define do
   end
 
   sequence :body do |n|
-    "Body quesyion number #{n}"
+    "Body question number #{n}"
   end
 
   factory :question do
     body 
-    title 
+    title
+    user
 
     factory :invalid_question do 
       body  { nil } 

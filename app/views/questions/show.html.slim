@@ -11,10 +11,16 @@ p
     = @question.body
 
 h3
-  - @question.answers.each do |answer|
-    p = answer.body
+  - if @answers
+    - @answers.reload.each do |answer|
+      = answer.body 
+      = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{answer.id}"
+      br
+  - else 
+     | No answers to this question
 
 = form_with(model: [@answer.question, @answer], method: :post, optional: true) do |f|
-   = f.label :body
-   = f.text_area :body
-   = f.submit
+  / = f.hidden_field :user_id, value: current_user.id
+  = f.label :body
+  = f.text_area :body
+  = f.submit
