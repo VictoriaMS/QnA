@@ -20,8 +20,19 @@ describe AnswersController do
     log_in_user
     
     context 'with valid attributes' do 
+      let(:valid_answer_attributes) { post :create, params: { answer: attributes_for(:answer), question_id: question } }
+
       it 'saves the new answer in the database' do 
-        expect{ post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(question.answers, :count).by(1)
+        expect{ valid_answer_attributes }.to change(question.answers, :count).by(1)
+      end
+
+      it 'assigns the requested question to @question' do
+        valid_answer_attributes
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'saves the answer for current user' do
+        expect { valid_answer_attributes }.to change(@user.answers, :count).by(1)
       end
 
       it 'redirects to show' do 
@@ -37,7 +48,7 @@ describe AnswersController do
 
       it 're-renders new views' do 
         post :create, params: { answer: attributes_for(:invalid_answer), question_id: question }
-        expect(response).to render_template :new
+        expect(response).to render_template 'questions/show'
       end
     end
   end

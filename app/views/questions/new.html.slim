@@ -1,4 +1,5 @@
-= form_with(model: @question, optional: true) do |f| 
+= form_with(model: @question, local: true) do |f| 
+  = render 'shared/errors', resource: @question
   .field
     = f.label :title
     = f.text_field :title

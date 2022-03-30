@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe QuestionsController do
-  let(:question) {create(Question)}
+  let(:question) { create(Question) }
 
   describe 'GET #new' do
     log_in_user
@@ -21,7 +21,7 @@ describe QuestionsController do
 
     context 'with valid attributes' do 
       it 'saves the new question in the database' do 
-        expect{ post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
+        expect{ post :create, params: { question: attributes_for(:question) } }.to change(@user.questions, :count).by(1)
       end
 
       it 'redirects to show'do 
