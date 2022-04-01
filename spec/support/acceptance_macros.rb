@@ -9,6 +9,6 @@ module AcceptanceMacros
   def create_answer(question)
     visit question_path(question)
     fill_in 'Body', with: 'answer'
-    click_on 'Create'
+    click_on 'Create Answer'
   end
 end

@@ -5,18 +5,21 @@ feature 'create answer', %q{
   As an user 
   I want to be able to create an answer to a question
 } do 
-  given(:question) { create(:question) }
-  given(:user)     { create(:user) }
+  let!(:question) { create(:question) }
+  let!(:user)     { create(:user) }
 
-  scenario 'Authenticated user creates an answer' do
-    log_in(user) 
+  scenario 'Authenticated user creates an answer', js: true do
+    log_in(user)
     create_answer(question)
-
+    
     expect(current_path).to eq question_path(question)
-    expect(page).to have_content 'answer'
+
+    within '.answers' do
+      expect(page).to have_content 'answer'
+    end
   end
 
-  scenario 'Anthenticated user creates an answer with invalid attributes' do 
+  scenario 'Anthenticated user creates an answer with invalid attributes', js: true do 
     log_in(user) 
     visit question_path(question)
     fill_in 'Body', with: nil

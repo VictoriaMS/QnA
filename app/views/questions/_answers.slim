@@ -1,0 +1,4 @@
+- @question.reload.answers.each do |answer|
+  - if answer.persisted?
+    p = answer.body
+    p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id 

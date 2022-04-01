@@ -1,0 +1,10 @@
+$(document).ready(function() {
+  <% if @answer.errors.any? %>
+    <% @answer.errors.full_messages.each do |message| %>
+      $('.answers').append('<%= j message %>');
+    <% end %>
+  <% else %>
+    $('.answers').append("<%= j render 'questions/answers' %>");
+    $('#answer_body').val("");
+  <% end %>
+});
