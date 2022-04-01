@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'acceptance/acceptance_helper'
 
 feature 'view the question and his answers', %q{
   In order to find the answer to a question

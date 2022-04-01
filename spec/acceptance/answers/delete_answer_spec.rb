@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'acceptance/acceptance_helper'
 
 feature 'delete the answer', %q{
   In order to keep the answers to the question up to date

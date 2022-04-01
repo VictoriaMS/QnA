@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'acceptance/acceptance_helper'
 
 feature 'delete the question', %q{
   In order to receive answers only to relevant questions
