@@ -9,7 +9,7 @@ p
     = @question.body
 
 .answers
-  = render 'questions/answers'
+  = render @question.answers
 
 = form_with(model: [@answer.question, @answer], method: :post, remote: true) do |f|
   = render 'shared/errors', resource: @answer

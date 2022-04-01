@@ -4,7 +4,7 @@ $(document).ready(function() {
       $('.answers').append('<%= j message %>');
     <% end %>
   <% else %>
-    $('.answers').append("<%= j render 'questions/answers' %>");
+    $('.answers').append("<%= j render @answer %>");
     $('#answer_body').val("");
   <% end %>
 });
