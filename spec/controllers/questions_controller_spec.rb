@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe QuestionsController do
-  let(:question) { create(Question) }
+  let(:question) { create(:question) }
 
   describe 'GET #new' do
     log_in_user
@@ -38,6 +38,39 @@ describe QuestionsController do
       it 're-renders new views' do 
         post :create, params: { question: attributes_for(:invalid_question) }
         expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'PUTCH #update' do
+    let(:question) { create(:question, title: 'title question', body: 'body question') }
+
+    context 'valid_attributes' do 
+      it 'assigns the requested question to @question' do 
+        patch :update, params: { id: question, question: attributes_for(:question), format: :js }
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'changes question attributes' do 
+        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' }, format: :js }
+        question.reload
+        expect(question.title).to eq 'new title'
+        expect(question.body).to eq 'new body'
+      end
+
+      it 'render to update temlate' do 
+        patch :update, params: { id: question, question: attributes_for(:question), format: :js }
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'invalid attributes' do 
+      before { patch :update, params: {id: question, question: { title: 'new title', body: nil }, format: :js } }
+
+      it 'does not change question attributes' do 
+        question.reload
+        expect(question.title).to eq 'title question'
+        expect(question.body).to eq 'body question'
       end
     end
   end

@@ -1,4 +1,14 @@
 = link_to question.title, question_path(question)
 = question.body
+- if user_signed_in?
+  = link_to 'Edit'
+br
 = link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}"
 br
+
+= form_with(model: question, method: :patch, remote: true) do |f|
+  = f.label :title, 'Title'
+  = f.text_field :title
+  = f.label :body, 'Question'
+  = f.text_area :body
+  = f.submit 'Save'
