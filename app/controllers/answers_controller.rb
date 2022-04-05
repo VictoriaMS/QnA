@@ -2,6 +2,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i[ new create destroy]
   before_action :set_question, only: %i[new create destroy update]
   before_action :set_answer, only: %i[ destroy update ]
+  before_action :set_answers_list, only: %i[ destroy update ]
 
 
   def new 
@@ -16,15 +17,17 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy  
-    redirect_to question_path(@question)
   end
 
   def update 
-    @answers = @question.answers
     @answer.update(answer_params)
   end
 
   private 
+
+  def set_answers_list
+    @answers = @question.answers
+  end
 
   def set_answer
     @answer = Answer.find(params[:id])
