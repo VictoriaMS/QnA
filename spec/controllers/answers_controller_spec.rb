@@ -72,4 +72,19 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do 
+    before { question }
+    let!(:answer) { create(:answer, question: question) }
+    log_in_user
+
+    it 'deletes the answer' do 
+      expect { delete :destroy, params: { id: answer, question_id: question, format: :js } }.to change(question.answers, :count).by(-1)
+    end
+
+    it 'render to destroy template' do
+      delete :destroy, params: { id: answer, question_id: question, format: :js }
+      expect(response).to render_template :destroy
+    end
+  end
 end
