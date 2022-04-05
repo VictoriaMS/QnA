@@ -9,7 +9,7 @@ feature 'delete the question', %q{
   given(:another_user) { create(:user) }
   given!(:question)    { create(:question, user: user) }
 
-  scenario 'Authenticated user delete own question' do 
+  scenario 'Authenticated user delete own question', js: true do 
     log_in(user) 
     visit questions_path
     click_on 'Destroy'
