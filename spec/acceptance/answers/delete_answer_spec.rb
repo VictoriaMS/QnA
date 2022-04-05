@@ -8,33 +8,25 @@ feature 'delete the answer', %q{
   let!(:user)         { create(:user) }
   let!(:another_user) { create(:user) }
   let!(:question)     { create(:question, user: another_user) }
-  let!(:answers)      { create_list(:answer, 3, user: another_user, question: question) }
   let!(:answer)       { create(:answer, user: user, question: question) }
 
   scenario 'Authenticated user delete own answer' do 
     log_in(user) 
-    question.reload
-    answer.reload
     visit question_path(question)
-    find("##{answer.id}").click
+    click_on 'Delete answer'
 
     expect(page).to_not have_content answer.body
-    expect(page).to have_content 'Answer successfully deleted'
   end
 
   scenario 'Authenticated user delete a non-own answer' do 
-    log_in(user)
+    log_in(another_user)
     visit question_path(question)
-    find("##{answers.first.id}").click
     
-    expect(page).to have_content 'You cannot delete this answer'
-    expect(page).to have_content answers.first.body
+    expect(page).to_not have_link 'Delete answer'
   end
 
   scenario 'Unauthenticated user delete question' do 
     visit question_path(question)
-    find("##{answer.id}").click
-
-    expect(page).to have_content 'You need to sign in or sign up before continuing'
+    expect(page).to_not have_link 'Delete answer'
   end
 end

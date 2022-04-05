@@ -39,4 +39,37 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    log_in_user
+    let(:answer) { create(:answer, body: 'answer body', question: question ) }
+
+    context 'with valid attributes' do
+      it 'assigns the requested question to @question' do
+        patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(assigns(:question)).to eq question
+      end
+      it 'assigns the requested answer to @answer' do
+        patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(assigns(:answer)).to eq answer
+      end
+      it 'changes answer attributes' do 
+        patch :update, params: { id: answer, answer: { body: 'edited body' }, question_id: question, format: :js }
+        answer.reload
+        expect(answer.body).to eq 'edited body'
+      end
+      it 'render to update template' do
+        patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(response).to render_template :update
+      end
+    end
+  
+    context 'with invalid attributes' do 
+      it 'does not change answer in database' do 
+        patch :update, params: { id: answer, answer: { body: nil }, question_id: question, format: :js }
+        answer.reload
+        expect(answer.body).to eq 'answer body'
+      end
+    end
+  end
 end

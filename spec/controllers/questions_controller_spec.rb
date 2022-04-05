@@ -42,7 +42,7 @@ describe QuestionsController do
     end
   end
 
-  describe 'PUTCH #update' do
+  describe 'PATCH #update' do
     let(:question) { create(:question, title: 'title question', body: 'body question') }
 
     context 'valid_attributes' do 

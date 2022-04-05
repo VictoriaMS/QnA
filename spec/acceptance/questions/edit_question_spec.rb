@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'edit question', %q{
   In order to fix mistake 
-  As ab author of question
+  As an author of question
   I want to able to edit my question
 } do 
   given!(:another_user) { create(:user) }
