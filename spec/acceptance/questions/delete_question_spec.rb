@@ -8,32 +8,26 @@ feature 'delete the question', %q{
   given(:user)         { create(:user) }
   given(:another_user) { create(:user) }
   given!(:question)    { create(:question, user: user) }
-  given!(:questions)   { create_list(:question, 3, user: another_user) }
 
   scenario 'Authenticated user delete own question' do 
     log_in(user) 
     visit questions_path
-    find("##{question.id}").click
+    click_on 'Destroy'
 
     expect(page).to_not have_content question.title
     expect(page).to_not have_content question.body
-    expect(page).to have_content 'Question successfully deleted'
   end
 
   scenario 'Authenticated user delete a non-own question' do 
-    log_in(user)
+    log_in(another_user)
     visit questions_path
-    find("##{questions.first.id}").click
-    
-    expect(page).to have_content 'You cannot delete this question.'
-    expect(page).to have_content questions.first.title
-    expect(page).to have_content questions.first.body
+ 
+    expect(page).to_not have_link 'Destroy'
   end
 
   scenario 'Unauthenticated user delete question' do 
     visit questions_path
-    find("##{question.id}").click
     
-    expect(page).to have_content 'You need to sign in or sign up before continuing'
+    expect(page).to_not have_link 'Destroy'
   end
 end
