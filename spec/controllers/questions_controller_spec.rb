@@ -87,4 +87,18 @@ describe QuestionsController do
       expect(response).to render_template :index
     end
   end 
+
+  describe 'DELETE #destroy' do 
+    log_in_user
+    before { question }
+
+    it 'deletes question' do 
+      expect { delete :destroy, params: {id: question, format: :js} }.to change(Question, :count).by(-1)
+    end
+
+    it 'render to destroy template' do 
+      delete :destroy, params: { id: question, format: :js }
+      expect(response).to render_template :destroy
+    end
+  end
 end
