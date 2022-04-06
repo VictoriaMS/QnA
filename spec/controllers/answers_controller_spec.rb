@@ -73,6 +73,17 @@ describe AnswersController do
     end
   end
 
+  describe 'PATCH #update_best_answer' do 
+    log_in_user
+    let(:answer) { create(:answer, question: question ) }
+
+    it 'answer status update, for best answer' do 
+      patch :update_best_answer, params: { id: answer, question_id: question, answer: { best_answer: true } }
+      answer.reload
+      expect(answer.best_answer).to eq true
+    end
+  end
+
   describe 'DELETE #destroy' do 
     before { question }
     let!(:answer) { create(:answer, question: question) }

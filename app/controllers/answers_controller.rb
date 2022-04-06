@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i[ new create destroy]
   before_action :set_question, only: %i[new create destroy update]
-  before_action :set_answer, only: %i[ destroy update ]
+  before_action :set_answer, only: %i[ destroy update update_best_answer]
   before_action :set_answers_list, only: %i[ destroy update ]
 
 
@@ -21,6 +21,10 @@ class AnswersController < ApplicationController
 
   def update 
     @answer.update(answer_params)
+  end
+
+  def update_best_answer
+    @answer.mark_best!
   end
 
   private 
