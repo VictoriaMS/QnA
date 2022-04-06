@@ -10,7 +10,7 @@ RSpec.describe Answer, type: :model do
 
   
   it '#mark_best' do 
-    answer.mark_best
+    answer.mark_best!
 
     expect(question.answers.best_answer.first).to eq answer
   end

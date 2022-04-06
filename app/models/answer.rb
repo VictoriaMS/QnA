@@ -6,8 +6,7 @@ class Answer < ApplicationRecord
 
   scope :best_answer, -> { where(best_answer: true) }
 
-  def mark_best
-    self.best_answer = true 
-    save
+  def mark_best!
+    self.update(best_answer: true) 
   end
 end
