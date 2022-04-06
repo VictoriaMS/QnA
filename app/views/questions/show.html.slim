@@ -10,6 +10,9 @@ p
 
 .answer-erros
 .answers
+  .best_answer 
+    - if @question.answers.best_answer.any?
+      = render 'answers/best_answer', answer: @question.answers.best_answer.first
   = render @question.answers
 
 = form_with(model: [@answer.question, @answer], method: :post, remote: true) do |f|
