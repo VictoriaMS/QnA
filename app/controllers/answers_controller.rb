@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
   end
 
   def update_best_answer
-    if  @question.answers.best_answer.empty?
+    if @question.answers.best_answer.empty?
       @answer.mark_best!
       redirect_to question_path(@question)
     else 
