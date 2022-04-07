@@ -24,8 +24,14 @@ class AnswersController < ApplicationController
   end
 
   def update_best_answer
-    @answer.mark_best!
-    redirect_to question_path(@question)
+    if  @question.answers.best_answer.empty?
+      @answer.mark_best!
+      redirect_to question_path(@question)
+    else 
+      @question.answers.best_answer.first.unmark_best!
+      @answer.mark_best!
+      redirect_to question_path(@question)
+    end
   end
 
   private 

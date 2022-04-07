@@ -14,4 +14,11 @@ RSpec.describe Answer, type: :model do
 
     expect(question.answers.best_answer.first).to eq answer
   end
+
+  it '#unmark_best' do 
+    answer.mark_best!
+    answer.unmark_best!
+    
+    expect(question.answers.best_answer.count).to eq 0
+  end
 end

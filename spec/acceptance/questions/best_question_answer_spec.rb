@@ -43,11 +43,14 @@ feature 'choose best question answer', %q{
       end
     end
 
-    scenario 'selects second best answer' do 
+    scenario 'selects new best answer' do 
       within '.answers' do
         find("a#best_answer_#{answers.first.id}").click
+        find("a#best_answer_#{answers.last.id}").click
+      end
 
-        expect(page).to_not have_link 'Best answer'
+      within '.best_answer' do
+        expect(page).to have_content answers.last.body
       end
     end
   end

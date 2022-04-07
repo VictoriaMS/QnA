@@ -9,4 +9,8 @@ class Answer < ApplicationRecord
   def mark_best!
     self.update(best_answer: true) 
   end
+
+  def unmark_best!
+    self.update(best_answer: false)
+  end
 end
