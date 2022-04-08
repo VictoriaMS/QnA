@@ -13,7 +13,7 @@ p
     strong Attachments: 
     ul
       - @question.attachments.each do |a|
-        = a.file.file.filename
+        = link_to a.file.identifier, a.file.url
 
 .answer-erros
 .answers
