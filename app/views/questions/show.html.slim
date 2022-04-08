@@ -8,6 +8,13 @@ p
     strong Body: 
     = @question.body
 
+p
+  h3 
+    strong Attachments: 
+    ul
+      - @question.attachments.each do |a|
+        = a.file.file.filename
+
 .answer-erros
 .answers
   .best_answer 
