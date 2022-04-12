@@ -11,9 +11,11 @@ p
 p
   h3 
     strong Attachments: 
+    .attachments
     ul
       - @question.attachments.each do |a|
         = link_to a.file.identifier, a.file.url
+        br
 
 .answer-erros
 .answers

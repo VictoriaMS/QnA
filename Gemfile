@@ -51,6 +51,7 @@ group :development, :test do
   gem 'capybara-webkit', '~> 1.15', '>= 1.15.1'
   gem 'carrierwave'
   gem 'remotipart'
+  gem 'cocoon'
 end
 
 group :development do
