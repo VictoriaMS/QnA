@@ -1,5 +1,11 @@
 - if answer.persisted? && answer.best_answer == false
   p = answer.body
+  p
+  h3 
+    strong Attachments: 
+    ul
+      - answer.attachments.each do |a|
+        = link_to a.file.identifier, a.file.url
   - if user_signed_in? 
     - if current_user.author_of?(answer.question)
       = link_to 'Best answer', update_best_answer_question_answer_path(answer.question, answer), method: :patch, id: "best_answer_#{answer.id}",

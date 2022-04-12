@@ -5,7 +5,7 @@ describe QuestionsController do
 
   describe 'GET #new' do
     log_in_user
-    before {get :new}
+    before { get :new }
 
     it 'assigns a new question to @question' do 
       expect(assigns(:question)).to be_a_new(Question)
@@ -19,6 +19,27 @@ describe QuestionsController do
       expect(response).to render_template :new
     end
   end
+
+  describe 'GET #show' do 
+    before { get :show, params: { id: question } }
+
+    it 'assigns the requested question to @question' do 
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'assigns the new answer for question' do 
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'assigns the new attachments for answer' do
+      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
+    end
+
+    it 'renders show view' do
+      expect(response).to render_template :show
+    end
+  end
+
 
   describe 'POST #create' do 
     log_in_user

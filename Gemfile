@@ -39,8 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'therubyracer'
 gem 'execjs'
 gem 'slim-rails'
-gem 'jquery-rails'
-gem 'carrierwave'
+gem 'jquery-rails'  
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,6 +49,8 @@ group :development, :test do
   gem 'pry', '~> 0.13.1'
   gem 'database_cleaner'
   gem 'capybara-webkit', '~> 1.15', '>= 1.15.1'
+  gem 'carrierwave'
+  gem 'remotipart'
 end
 
 group :development do
