@@ -1,0 +1,6 @@
+  h3 
+    strong Attachments: 
+    ul
+      - resource.attachments.each do |a|
+        = link_to a.file.identifier, a.file.url
+        br

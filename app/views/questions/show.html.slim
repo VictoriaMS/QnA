@@ -9,13 +9,8 @@ p
     = @question.body
 
 p
-  h3 
-    strong Attachments: 
-    .attachments
-    ul
-      - @question.attachments.each do |a|
-        = link_to a.file.identifier, a.file.url
-        br
+  - if @question.attachments.any?
+    = render 'shared/attachments', resource: @question
 
 .answer-erros
 .answers
@@ -24,13 +19,13 @@ p
       = render 'answers/best_answer', answer: @question.answers.best_answer.first
   = render @question.answers
 
-= form_with(model: [@answer.question, @answer], method: :post, remote: true) do |f|
+= form_with(model: [@answer.question, @answer], method: :post, remote: true, class: 'new_answer') do |f|
   = render 'shared/errors', resource: @answer
   = f.label :body
   = f.text_area :body
 
-  = f.fields_for :attachments do |a|
-    = a.label :file
-    = a.file_field :file
-    
+  = f.fields_for :attachments do |attachment|
+    = render 'shared/attachment_fields', f: attachment
+  .links 
+    = link_to_add_association 'add file', f, :attachments, partial: 'shared/attachment_fields'
   = f.submit

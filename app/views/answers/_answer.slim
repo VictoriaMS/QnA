@@ -1,19 +1,20 @@
 - if answer.persisted? && answer.best_answer == false
   p = answer.body
+
   p
-  h3 
-    strong Attachments: 
-    ul
-      - answer.attachments.each do |a|
-        = link_to a.file.identifier, a.file.url
+    - if answer.attachments.any?
+      = render 'shared/attachments', resource: answer
+
   - if user_signed_in? 
     - if current_user.author_of?(answer.question)
       = link_to 'Best answer', update_best_answer_question_answer_path(answer.question, answer), method: :patch, id: "best_answer_#{answer.id}",
                                         data: { answer_id: answer.id, confirm: 'Do you want to make this the best answer for your question?' }
+
     - if current_user.author_of?(answer)
       p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
       p = link_to 'Edit', '', class: 'edit-answer', data: { answer_id: answer.id }
     br
+    
     = form_with(model: [answer.question, answer], method: :patch, romote: true, html: { id: "edit-answer-#{answer.id}"}, class: 'edit') do |f|
       = f.label :body
       = f.text_area :body
