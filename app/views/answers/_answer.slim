@@ -3,7 +3,7 @@
 
   p
     - if answer.attachments.any?
-      = render 'shared/attachments', resource: answer
+      = render 'attachments/attachments', resource: answer
 
   - if user_signed_in? 
     - if current_user.author_of?(answer.question)

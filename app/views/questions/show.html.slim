@@ -10,7 +10,7 @@ p
 
 p
   - if @question.attachments.any?
-    = render 'shared/attachments', resource: @question
+    = render 'attachments/attachments', resource: @question
 
 .answer-erros
 .answers
@@ -25,7 +25,7 @@ p
   = f.text_area :body
 
   = f.fields_for :attachments do |attachment|
-    = render 'shared/attachment_fields', f: attachment
+    = render 'attachments/attachment_fields', f: attachment
   .links 
-    = link_to_add_association 'add file', f, :attachments, partial: 'shared/attachment_fields'
+    = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'
   = f.submit
