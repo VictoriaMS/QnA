@@ -132,12 +132,12 @@ describe QuestionsController do
     let!(:question) { create(:question) }
 
     it 'assigns the requested question to @question' do 
-      patch :update_voted_up, params: { id: question, format: :js }
+      patch :update_voted_up, params: { id: question, format: :json }
       expect(assigns(:question)).to eq question
     end
 
     it 'changes the number of people who voted up' do
-      expect{ patch :update_voted_up, params: { id: question, format: :js } }.to change{ question.reload.voted_up }.by(1)
+      expect{ patch :update_voted_up, params: { id: question, format: :json } }.to change{ question.reload.voted_up }.by(1)
     end
   end
 
@@ -146,12 +146,12 @@ describe QuestionsController do
     let!(:question) { create(:question) }
 
     it 'assigns the requested question to @question' do 
-      patch :update_voted_down, params: { id: question, format: :js }
+      patch :update_voted_down, params: { id: question, format: :json }
       expect(assigns(:question)).to eq question
     end
 
     it 'changes the number of people who voted up' do
-      expect{ patch :update_voted_down, params: { id: question, format: :js } }.to change{ question.reload.voted_down }.by(1)
+      expect{ patch :update_voted_down, params: { id: question, format: :json } }.to change{ question.reload.voted_down }.by(1)
     end
   end
 end

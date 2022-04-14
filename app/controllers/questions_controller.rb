@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :destroy ]
-  before_action :set_question, only: [ :destroy, :show, :update ]
+  before_action :set_question, only: [ :destroy, :show, :update, :update_voted_down, :update_voted_up ]
   before_action :set_questions_list, only: [ :index, :create, :update]
 
   def index 
@@ -36,7 +36,6 @@ class QuestionsController < ApplicationController
   end
 
   def update_voted_up
-    @question = Question.find(params[:id])
     @question.voted_up += 1
     @question.save
     respond_to do |format|
@@ -45,7 +44,6 @@ class QuestionsController < ApplicationController
   end
 
   def update_voted_down
-    @question = Question.find(params[:id])
     @question.voted_down += 1 
     @question.save
     respond_to do |format|

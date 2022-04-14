@@ -8,10 +8,12 @@ feature 'vote for question', %q{
   let(:user) { create(:user) }
   let!(:question) { create(:question) }
 
-  scenario 'Authenticated user votes up for question', js: true do
+  background do
     log_in(user)
     visit questions_path
+  end  
 
+  scenario 'Authenticated user votes up for question', js: true do
     click_on 'Vote up'
     
     within '.voted_up' do
@@ -20,9 +22,6 @@ feature 'vote for question', %q{
   end
 
   scenario 'Authenticated user votes down for question', js: true do
-    log_in(user)
-    visit questions_path
-
     click_on 'Vote down'
 
     within '.voted_down' do 
