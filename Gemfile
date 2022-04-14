@@ -37,6 +37,7 @@ gem 'devise'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'therubyracer'
+gem 'twitter-bootstrap-rails'
 gem 'execjs'
 gem 'slim-rails'
 gem 'jquery-rails'  

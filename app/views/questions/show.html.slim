@@ -4,7 +4,7 @@ p
     = @question.title
 
 p 
-  h2 
+  h3
     strong Body: 
     = @question.body
 
@@ -19,6 +19,7 @@ p
       = render 'answers/best_answer', answer: @question.answers.best_answer.first
   = render @question.answers
 
+h4 Creare new answer:
 = form_with(model: [@answer.question, @answer], method: :post, remote: true, class: 'new_answer') do |f|
   = render 'shared/errors', resource: @answer
   = f.label :body
@@ -29,3 +30,5 @@ p
   .links 
     = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'
   = f.submit
+
+= link_to 'Back', questions_path

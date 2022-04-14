@@ -1,0 +1,22 @@
+.card.border-secondary.mb-8 style=("max-width: 18rem;") 
+  .card-body.text-secondary.
+    h4.card-title 
+      = link_to question.title, question_path(question)
+    p.card-text
+      = question.body
+    - if user_signed_in? && current_user.author_of?(question)
+    .card-body
+      = link_to 'Edit', '', class: 'edit-question btn', data: { question_id: question.id }
+      = link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}", class: 'btn', remote: true
+    br
+
+
+= form_with(model: question, method: :patch, remote: true, html: { id: "edit-question-#{question.id}"}, class: 'edit') do |f|
+  .field
+    = f.label :title, 'Title'
+    = f.text_field :title
+  .field
+    = f.label :body, 'Question'
+    = f.text_area :body
+  .action
+    = f.submit 'Save'
