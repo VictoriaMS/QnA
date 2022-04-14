@@ -100,7 +100,7 @@ describe QuestionsController do
     end
   end
 
-  describe 'GET #index' do 
+  describe 'GET #index' do  
     before {get :index}
     let(:questions) { create_list(:question, 2) }
 
@@ -124,6 +124,34 @@ describe QuestionsController do
     it 'render to destroy template' do 
       delete :destroy, params: { id: question, format: :js }
       expect(response).to render_template :destroy
+    end
+  end
+
+  describe 'PATCH #update_voted_up' do 
+    log_in_user
+    let!(:question) { create(:question) }
+
+    it 'assigns the requested question to @question' do 
+      patch :update_voted_up, params: { id: question, format: :js }
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes the number of people who voted up' do
+      expect{ patch :update_voted_up, params: { id: question, format: :js } }.to change{ question.reload.voted_up }.by(1)
+    end
+  end
+
+  describe 'PATCH #update_voted_down' do 
+    log_in_user
+    let!(:question) { create(:question) }
+
+    it 'assigns the requested question to @question' do 
+      patch :update_voted_down, params: { id: question, format: :js }
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes the number of people who voted up' do
+      expect{ patch :update_voted_down, params: { id: question, format: :js } }.to change{ question.reload.voted_down }.by(1)
     end
   end
 end

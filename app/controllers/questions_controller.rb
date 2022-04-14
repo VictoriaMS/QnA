@@ -35,6 +35,24 @@ class QuestionsController < ApplicationController
     @answer.attachments.build
   end
 
+  def update_voted_up
+    @question = Question.find(params[:id])
+    @question.voted_up += 1
+    @question.save
+    respond_to do |format|
+      format.json { render json: @question }
+    end
+  end
+
+  def update_voted_down
+    @question = Question.find(params[:id])
+    @question.voted_down += 1 
+    @question.save
+    respond_to do |format|
+      format.json { render json: @question }
+    end
+  end
+
   private
 
   def set_questions_list

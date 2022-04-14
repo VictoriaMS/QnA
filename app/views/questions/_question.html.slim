@@ -1,14 +1,24 @@
-.card.border-secondary.mb-8 style=("max-width: 18rem;") 
-  .card-body.text-secondary.
-    h4.card-title 
-      = link_to question.title, question_path(question)
-    p.card-text
-      = question.body
-    - if user_signed_in? && current_user.author_of?(question)
-    .card-body
-      = link_to 'Edit', '', class: 'edit-question btn', data: { question_id: question.id }
-      = link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}", class: 'btn', remote: true
-    br
+.row
+  .card.border-secondary
+    .col-md-1
+      .row
+        .voted_up
+          = question.voted_up
+        .voted_down
+          = question.voted_down
+    .card-body.text-secondary.col-md-6
+      h4.card-title 
+        = link_to question.title, question_path(question)
+      p.card-text
+        = question.body
+      - if user_signed_in? && current_user.author_of?(question)
+      .card-body
+        = link_to 'Edit', '', class: 'edit-question btn', data: { question_id: question.id }
+        = link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}", class: 'btn', remote: true
+      = link_to 'Vote up', update_voted_up_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted_up_link'
+      = link_to 'Vote down', update_voted_down_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted_down_link'
+      br
+      br
 
 
 = form_with(model: question, method: :patch, remote: true, html: { id: "edit-question-#{question.id}"}, class: 'edit') do |f|
