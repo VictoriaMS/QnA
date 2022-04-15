@@ -11,8 +11,6 @@
       = render 'attachments/attachments', resource: answer
 
   - if user_signed_in? 
-    = link_to 'Vote up', update_voted_up_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted_up_link'
-    = link_to 'Vote down', update_voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON}, class: 'voted_down_link'
     - if current_user.author_of?(answer.question)
       = link_to 'Best answer', update_best_answer_question_answer_path(answer.question, answer), method: :patch, id: "best_answer_#{answer.id}",
                                         data: { answer_id: answer.id, confirm: 'Do you want to make this the best answer for your question?' }
@@ -20,6 +18,9 @@
     - if current_user.author_of?(answer)
       p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
       p = link_to 'Edit', '', class: 'edit-answer', data: { answer_id: answer.id }
+    - else
+      = link_to 'Vote up', update_voted_up_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted_up_link'
+      = link_to 'Vote down', update_voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON}, class: 'voted_down_link'
     br
     
     = form_with(model: [answer.question, answer], method: :patch, romote: true, html: { id: "edit-answer-#{answer.id}"}, class: 'edit') do |f|
