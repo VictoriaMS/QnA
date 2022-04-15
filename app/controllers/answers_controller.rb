@@ -35,16 +35,14 @@ class AnswersController < ApplicationController
   end
 
   def update_voted_up
-    @answer.voted_up += 1 
-    @answer.save
+    @answer.vote_up!
     respond_to do |format|
       format.json { render json: @answer }
     end
   end
 
   def update_voted_down
-    @answer.voted_down += 1
-    @answer.save
+    @answer.vote_down!
     respond_to do |format|
       format.json { render json: @answer }
     end

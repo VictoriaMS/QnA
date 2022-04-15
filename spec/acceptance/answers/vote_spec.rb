@@ -8,7 +8,7 @@ feature 'vote for answer', %q{
 
   let(:user)     { create(:user) }
   let(:question) { create(:question) }
-  let(:answer)   { create(:answer) } 
+  let!(:answer)   { create(:answer, question: question) } 
 
   background do
     log_in(user)
@@ -23,5 +23,15 @@ feature 'vote for answer', %q{
         expect(page).to have_content '1'
       end
     end
+  end
+
+  scenario 'Authenticated user votes down for answer', js: true do
+    within '.answers' do
+      click_on 'Vote down'
+
+      within '.voted_down' do 
+      expect(page).to have_content '1'
+      end
+  end
   end
 end
