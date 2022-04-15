@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i[ new create destroy]
   before_action :set_question, only: %i[new create destroy update update_best_answer]
-  before_action :set_answer, only: %i[ destroy update update_best_answer]
+  before_action :set_answer, only: %i[ destroy update update_best_answer update_voted_down update_voted_up]
   before_action :set_answers_list, only: %i[ destroy update ]
 
 
@@ -31,6 +31,22 @@ class AnswersController < ApplicationController
       @question.answers.best_answer.first.unmark_best!
       @answer.mark_best!
       redirect_to question_path(@question)
+    end
+  end
+
+  def update_voted_up
+    @answer.voted_up += 1 
+    @answer.save
+    respond_to do |format|
+      format.json { render json: @answer }
+    end
+  end
+
+  def update_voted_down
+    @answer.voted_down += 1
+    @answer.save
+    respond_to do |format|
+      format.json { render json: @answer }
     end
   end
 

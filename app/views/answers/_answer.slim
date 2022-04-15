@@ -1,11 +1,18 @@
 - if answer.persisted? && answer.best_answer == false
   p = answer.body
 
+  .voted_up 
+    = answer.voted_up
+  .voted_down
+    = answer.voted_down
+
   p
     - if answer.attachments.any?
       = render 'attachments/attachments', resource: answer
 
   - if user_signed_in? 
+    = link_to 'Vote up', update_voted_up_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted_up_link'
+    = link_to 'Vote down', update_voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON}, class: 'voted_down_link'
     - if current_user.author_of?(answer.question)
       = link_to 'Best answer', update_best_answer_question_answer_path(answer.question, answer), method: :patch, id: "best_answer_#{answer.id}",
                                         data: { answer_id: answer.id, confirm: 'Do you want to make this the best answer for your question?' }

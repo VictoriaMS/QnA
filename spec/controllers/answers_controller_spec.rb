@@ -84,6 +84,34 @@ describe AnswersController do
     end
   end
 
+  describe 'PATCH #update_voted_up' do
+    log_in_user
+    let(:answer) { create(:answer, question: question) }
+
+    it 'assigns the requested answer @answer' do
+      patch :update_voted_up, params: { id: answer, question_id: question, format: :json }
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'changes the number of people who voted up' do
+      expect{ patch :update_voted_up, params: {id: answer, question_id: question, format: :json } }.to change{ answer.reload.voted_up }.by(1)
+    end
+  end
+
+  describe 'PATCH #update-voted_down' do
+    log_in_user
+    let(:answer) { create(:answer, question: question) }
+
+    it 'assigns the requested answer @answer' do
+      patch :update_voted_down, params: { id: answer, question_id: question, format: :json }
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'changes the number of people who voted down' do
+      expect{ patch :update_voted_down, params: {id: answer, question_id: question, format: :json } }.to change{ answer.reload.voted_down }.by(1)
+    end
+  end
+
   describe 'DELETE #destroy' do 
     before { question }
     let!(:answer) { create(:answer, question: question) }

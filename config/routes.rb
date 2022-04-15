@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     patch :update_voted_down, on: :member
     resources :answers do
       patch :update_best_answer, on: :member
+      patch :update_voted_up, on: :member
+      patch :update_voted_down, on: :member
     end
   end
 

@@ -1,16 +1,17 @@
-p
-  h1 
-    strong Title: 
-    = @question.title
-
-p 
-  h3
-    strong Body: 
-    = @question.body
-
+.card 
+  .card-header
+    h3 
+      strong Title: 
+      = @question.title
+  .card-body 
+    h5  
+      = @question.body
 p
   - if @question.attachments.any?
     = render 'attachments/attachments', resource: @question
+ 
+h4 
+  strong Question's answers:
 
 .answer-erros
 .answers
