@@ -36,21 +36,11 @@ class QuestionsController < ApplicationController
   end
 
   def update_voted_up
-    unless current_user.author_of?(@question)
-      @question.vote_up!
-      respond_to do |format|
-        format.json { render json: @question }
-      end
-    end
+    vote(@question, 'up')
   end
 
   def update_voted_down
-    unless current_user.author_of?(@question)
-      @question.vote_down!
-      respond_to do |format|
-        format.json { render json: @question }
-      end
-    end
+    vote(@question, 'down')
   end
 
   private
