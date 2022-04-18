@@ -18,7 +18,7 @@ feature 'vote for question', %q{
     scenario 'votes up for question', js: true do
       click_on 'Vote up'
       
-      within '.raiting' do
+      within ".raiting_#{question.id}" do
         expect(page).to have_content '1'
       end
     end
@@ -26,7 +26,7 @@ feature 'vote for question', %q{
     scenario 'votes down for question', js: true do
       click_on 'Vote down'
   
-      within '.raiting' do 
+      within ".raiting_#{question.id}" do 
        expect(page).to have_content '-1'
       end
     end

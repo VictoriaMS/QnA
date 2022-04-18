@@ -1,6 +1,6 @@
 = link_to question.title, question_path(question)
 = question.body
-.raiting
+div[class="raiting_#{question.id}"]
   = question.raiting
 - if user_signed_in?
   - if current_user.author_of?(question)

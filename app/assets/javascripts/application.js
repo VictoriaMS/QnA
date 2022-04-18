@@ -21,14 +21,16 @@
 $(document).on('turbolinks:load', function(){
   $('a.voted-up-link').on('ajax:success', function(e){
     let resource = e['detail'][0]
-  
-    $('.raiting').html(resource.raiting)
+    let resourceId = resource.id
+
+    $('.raiting_' + resourceId).html(resource.raiting)
   })
   
   $('a.voted-down-link').on('ajax:success', function(e){
     let resource = e['detail'][0]
+    let resourceId = resource.id
   
-    $('.raiting').html(resource.raiting)
+    $('.raiting_' + resourceId).html(resource.raiting)
   })
   
 })

@@ -21,7 +21,7 @@ feature 'vote for answer', %q{
       within '.answers' do
         click_on 'Vote up'
   
-        within '.raiting' do
+        within ".raiting_#{answer.id}" do
           expect(page).to have_content '1'
         end     
       end
@@ -31,7 +31,7 @@ feature 'vote for answer', %q{
       within '.answers' do
         click_on 'Vote down'
   
-        within '.raiting' do 
+        within ".raiting_#{answer.id}" do 
           expect(page).to have_content '-1'
         end
       end
