@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include Voted
   before_action :authenticate_user!, only: [ :new, :create, :destroy ]
   before_action :set_question, only: [ :destroy, :show, :update ]
   before_action :set_questions_list, only: [ :index, :create, :update]
