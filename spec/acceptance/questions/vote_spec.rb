@@ -32,6 +32,46 @@ feature 'vote for question', %q{
     end
   end
 
+  describe 'User who voted up', js: true do
+    before do
+      log_in(user)
+      visit questions_path
+      click_on 'Vote up'
+    end
+
+    scenario 'votes up for the second time' do 
+      click_on 'Vote up'
+
+      expect(page).to have_content 'You cannot vote for this question'
+    end
+
+    scenario 'votes down for the second time' do
+      click_on 'Vote down'
+
+      expect(page).to have_content 'You cannot vote for this question'
+    end
+  end
+
+  describe 'User who voted down', js: true do
+    before do
+      log_in(user) 
+      visit questions_path
+      click_on 'Vote down'
+    end
+
+    scenario 'votes up for the second time' do 
+      click_on 'Vote up'
+
+      expect(page).to have_content 'You cannot vote for this question'
+    end
+
+    scenario 'votes down for the second time' do
+      click_on 'Vote down'
+
+      expect(page).to have_content 'You cannot vote for this question'
+    end
+  end
+
   describe 'Author user' do
     before do 
       log_in(author) 

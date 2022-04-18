@@ -31,3 +31,4 @@
 
 en:
   hello: "Hello world"
+  vote_errors: "You cannot vote for this %{resource}!"

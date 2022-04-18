@@ -22,8 +22,11 @@ $(document).on('turbolinks:load', function(){
   $('a.voted-up-link').on('ajax:success', function(e){
     let resource = e['detail'][0]
     let resourceId = resource.id
-
+    
     $('.raiting_' + resourceId).html(resource.raiting)
+  })
+  $('a.voted-up-link').on('ajax:error', function(e){
+    $('.alert').html(e['detail'][0])
   })
   
   $('a.voted-down-link').on('ajax:success', function(e){
@@ -32,5 +35,7 @@ $(document).on('turbolinks:load', function(){
   
     $('.raiting_' + resourceId).html(resource.raiting)
   })
-  
+  $('a.voted-down-link').on('ajax:error', function(e){
+    $('.alert').html(e['detail'][0])
+  })
 })
