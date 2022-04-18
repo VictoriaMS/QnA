@@ -6,13 +6,17 @@ module Votable
   end
 
   def vote_up(user)
-    votes.create(user_id: user.id, value: 1)
-    update_raiting
+    unless user.author_of?(self)
+      votes.create(user_id: user.id, value: 1)
+      update_raiting
+    end
   end
 
   def vote_down(user)
-    votes.create(user_id: user.id, value: -1)
-    update_raiting
+    unless user.author_of?(self)
+      votes.create(user_id: user.id, value: -1)
+      update_raiting
+    end
   end 
 
   private

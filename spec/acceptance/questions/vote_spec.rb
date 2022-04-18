@@ -31,4 +31,19 @@ feature 'vote for question', %q{
       end
     end
   end
+
+  describe 'Author user' do
+    before do 
+      log_in(author) 
+      visit questions_path
+    end
+
+    scenario 'votes up for question' do
+      expect(page).to_not have_link 'Vote up'
+    end
+
+    scenario 'votes down for question' do
+      expect(page).to_not have_link 'Vote down'
+    end
+  end
 end
