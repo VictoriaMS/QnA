@@ -5,4 +5,5 @@ $(document).on('turbolinks:load', function(){
     $(this).hide();
     $('form#edit-question-' + questionId).show();
   });
+  
 });

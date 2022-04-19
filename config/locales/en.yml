@@ -31,4 +31,5 @@
 
 en:
   hello: "Hello world"
-  vote_errors: "You cannot vote for this %{resource}!"
+  vote_twice: "You cannot vote for this %{resource}!"
+  vote_revote: "You did not vote for this %{resource}!"

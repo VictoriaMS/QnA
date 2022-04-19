@@ -33,10 +33,11 @@ feature 'vote for question', %q{
   end
 
   describe 'User who voted up', js: true do
-    before do
+    background do
       log_in(user)
       visit questions_path
       click_on 'Vote up'
+      question.reload
     end
 
     scenario 'votes up for the second time' do 
@@ -49,6 +50,15 @@ feature 'vote for question', %q{
       click_on 'Vote down'
 
       expect(page).to have_content 'You cannot vote for this question'
+    end
+
+    scenario 'revoke the vote' do
+
+      click_on 'Revoke'
+
+      within ".raiting_#{question.id}" do 
+        expect(page).to have_content '0'
+      end
     end
   end
 
@@ -57,6 +67,7 @@ feature 'vote for question', %q{
       log_in(user) 
       visit questions_path
       click_on 'Vote down'
+      question.reload
     end
 
     scenario 'votes up for the second time' do 
@@ -69,6 +80,14 @@ feature 'vote for question', %q{
       click_on 'Vote down'
 
       expect(page).to have_content 'You cannot vote for this question'
+    end
+
+    scenario 'revoke the vote' do 
+      click_on 'Revoke'
+
+      within ".raiting_#{question.id}" do 
+        expect(page).to have_content '0'
+      end
     end
   end
 

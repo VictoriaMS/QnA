@@ -20,22 +20,31 @@
 
 $(document).on('turbolinks:load', function(){
   $('a.voted-up-link').on('ajax:success', function(e){
-    let resource = e['detail'][0]
-    let resourceId = resource.id
-    
-    $('.raiting_' + resourceId).html(resource.raiting)
+    ratinOutput(e)
   })
   $('a.voted-up-link').on('ajax:error', function(e){
-    $('.alert').html(e['detail'][0])
+    alertOutput(e)
   })
   
   $('a.voted-down-link').on('ajax:success', function(e){
-    let resource = e['detail'][0]
-    let resourceId = resource.id
-  
-    $('.raiting_' + resourceId).html(resource.raiting)
+    ratinOutput(e)
   })
   $('a.voted-down-link').on('ajax:error', function(e){
-    $('.alert').html(e['detail'][0])
+    alertOutput(e)
+  })
+
+  $('a.revote-link').on('ajax:success', function(e){
+    ratinOutput(e)
   })
 })
+
+function ratinOutput(e) {
+  let resource = e['detail'][0]
+  let resourceId = resource.id
+
+  $('.raiting_' + resourceId).html(resource.raiting)
+}
+
+function alertOutput(e){
+  $('.alert').html(e['detail'][0])
+}

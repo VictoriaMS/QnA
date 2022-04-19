@@ -2,7 +2,7 @@ module Voted
   extend ActiveSupport::Concern
 
   included do 
-    before_action :set_object, only: [:voted_up, :voted_down] 
+    before_action :set_object, only: [:voted_up, :voted_down, :revote] 
   end
 
   def voted_up 
@@ -13,11 +13,18 @@ module Voted
     voted('vote_down')
   end
 
+  def revote
+    if current_user.voted?(@object)
+      @object.revote(current_user)
+      respond_to { |format| format.json { render json: @object } }
+    end
+  end
+
   private 
 
   def voted(option)
     if current_user.voted?(@object)
-      respond_to { |format| format.json { render json: t('vote_errors', resource: @object.class.to_s.downcase), status: :unprocessable_entity } }
+      respond_to { |format| format.json { render json: t('vote_twice', resource: @object.class.to_s.downcase), status: :unprocessable_entity } }
     else
       @object.send(option, current_user)
       respond_to { |format| format.json { render json: @object } }    

@@ -9,6 +9,7 @@ div[class="raiting_#{question.id}"]
   - else 
     = link_to 'Vote up', voted_up_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
     = link_to 'Vote down', voted_down_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
+    = link_to 'Revoke', revote_question_path(question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
 br
 
 = form_with(model: question, method: :patch, remote: true, html: { id: "edit-question-#{question.id}"}, class: 'edit') do |f|

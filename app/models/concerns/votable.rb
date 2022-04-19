@@ -19,6 +19,11 @@ module Votable
     end
   end 
 
+  def revote(user) 
+    votes.find_by(user_id: user.id).destroy
+    update_raiting
+  end 
+
   private
   
   def update_raiting
