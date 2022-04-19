@@ -43,6 +43,7 @@ feature 'vote for answer', %q{
       log_in(user)
       visit question_path(question)
       click_on 'Vote up'
+      answer.reload
     end
 
     scenario 'votes up for the second time' do 
@@ -55,6 +56,14 @@ feature 'vote for answer', %q{
       click_on 'Vote down'
 
       expect(page).to have_content 'You cannot vote for this answer'
+    end
+
+    scenario 'revoke the vote' do
+      click_on 'Revote'
+
+      within ".raiting_#{answer.id}" do
+        expect(page).to have_content '0'
+      end
     end
   end
 
@@ -63,6 +72,7 @@ feature 'vote for answer', %q{
       log_in(user) 
       visit question_path(question)
       click_on 'Vote down'
+      answer.reload
     end
 
     scenario 'votes up for the second time' do 
@@ -75,6 +85,14 @@ feature 'vote for answer', %q{
       click_on 'Vote down'
 
       expect(page).to have_content 'You cannot vote for this answer'
+    end
+
+    scenario 'revoke the vote' do
+      click_on 'Revote'
+
+      within ".raiting_#{answer.id}" do
+        expect(page).to have_content '0'
+      end
     end
   end
 

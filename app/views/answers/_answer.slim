@@ -16,8 +16,9 @@
       p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
       p = link_to 'Edit', '', class: 'edit-answer', data: { answer_id: answer.id }
     - else 
-      p = link_to 'Vote up', voted_up_question_answer_path(answer.question, answer),     method: :patch, remote: true, data: { type: JSON, answer_id: answer.id }, class: 'voted-up-link'
-      p = link_to 'Vote down', voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON, answer_id: answer.id }, class: 'voted-down-link'
+      p = link_to 'Vote up', voted_up_question_answer_path(answer.question, answer),     method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
+      p = link_to 'Vote down', voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
+      p = link_to 'Revote', revote_question_answer_path(answer.question, answer),        method: :delete, remote: true, data: { type: JSON }, class: 'revoke-link'
     br
     
     = form_with(model: [answer.question, answer], method: :patch, romote: true, html: { id: "edit-answer-#{answer.id}"}, class: 'edit') do |f|

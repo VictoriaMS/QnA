@@ -53,8 +53,7 @@ feature 'vote for question', %q{
     end
 
     scenario 'revoke the vote' do
-
-      click_on 'Revoke'
+      click_on 'Revote'
 
       within ".raiting_#{question.id}" do 
         expect(page).to have_content '0'
@@ -83,7 +82,7 @@ feature 'vote for question', %q{
     end
 
     scenario 'revoke the vote' do 
-      click_on 'Revoke'
+      click_on 'Revote'
 
       within ".raiting_#{question.id}" do 
         expect(page).to have_content '0'
