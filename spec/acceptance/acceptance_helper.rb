@@ -26,4 +26,5 @@ RSpec.configure do |config|
   end
 
   Capybara.javascript_driver = :webkit
+  Capybara.server = :puma 
 end

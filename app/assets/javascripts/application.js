@@ -17,6 +17,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree 
+//= require skim
 
 $(document).on('turbolinks:load', function(){
   $('a.voted-up-link').on('ajax:success', function(e){
