@@ -2,6 +2,7 @@
 = question.body
 div[class="raiting_#{question.id}"]
   = question.raiting
+  
 - if user_signed_in?
   - if current_user.author_of?(question)
     p= link_to 'Edit', '', class: 'edit-question', data: { question_id: question.id }
