@@ -40,9 +40,10 @@ gem 'therubyracer'
 gem 'execjs'
 gem 'slim-rails'
 gem 'jquery-rails'  
-gem 'skim'
+gem 'skim', '~>0.10.0'
 gem 'gon'
 gem 'rabl-rails'
+gem 'sprockets-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -88,6 +88,7 @@ feature 'vote for answer', %q{
     end
 
     scenario 'revoke the vote' do
+      answer.reload
       click_on 'Revote'
 
       within ".raiting_#{answer.id}" do

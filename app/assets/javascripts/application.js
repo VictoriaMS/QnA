@@ -12,12 +12,16 @@
 //
 //= require jquery
 //= require rails-ujs
+//= require action_cable
 //= require jquery.remotipart
 //= require cocoon
 //= require activestorage
 //= require turbolinks
-//= require_tree 
-//= require skim
+//= require_tree . 
+
+
+var App = App || {};
+App.cable = ActionCable.createConsumer();
 
 $(document).on('turbolinks:load', function(){
   $('a.voted-up-link').on('ajax:success', function(e){
@@ -47,5 +51,5 @@ function ratinOutput(e) {
 }
 
 function alertOutput(e){
-  $('.alert').html(e['detail'][0])
+  $('.alert').html(e['detail'][0])    
 }
