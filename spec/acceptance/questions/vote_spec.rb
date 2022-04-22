@@ -12,7 +12,7 @@ feature 'vote for question', %q{
   describe 'Authenticated user' do
     before do
       log_in(user)
-      visit questions_path
+      visit question_path(question)
     end  
 
     scenario 'votes up for question', js: true do
@@ -35,7 +35,7 @@ feature 'vote for question', %q{
   describe 'User who voted up', js: true do
     background do
       log_in(user)
-      visit questions_path
+      visit question_path(question)
       click_on 'Vote up'
       question.reload
     end
@@ -64,7 +64,7 @@ feature 'vote for question', %q{
   describe 'User who voted down', js: true do
     before do
       log_in(user) 
-      visit questions_path
+      visit question_path(question)
       click_on 'Vote down'
       question.reload
     end
@@ -93,7 +93,7 @@ feature 'vote for question', %q{
   describe 'Author user' do
     before do 
       log_in(author) 
-      visit questions_path
+      visit question_path(question)
     end
 
     scenario 'votes up for question' do

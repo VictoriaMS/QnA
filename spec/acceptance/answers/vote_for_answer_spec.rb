@@ -42,27 +42,35 @@ feature 'vote for answer', %q{
     before do
       log_in(user)
       visit question_path(question)
-      click_on 'Vote up'
+      within '.answers' do
+        click_on 'Vote up'
+      end
       answer.reload
     end
 
     scenario 'votes up for the second time' do 
-      click_on 'Vote up'
+      within '.answers' do
+        click_on 'Vote up'
+      end
 
       expect(page).to have_content 'You cannot vote for this answer'
     end
 
     scenario 'votes down for the second time' do
-      click_on 'Vote down'
+      within '.answers' do
+        click_on 'Vote down'
+      end
 
       expect(page).to have_content 'You cannot vote for this answer'
     end
 
     scenario 'revoke the vote' do
-      click_on 'Revote'
+      within '.answers' do
+        click_on 'Revote'
 
-      within ".raiting_#{answer.id}" do
-        expect(page).to have_content '0'
+        within ".raiting_#{answer.id}" do
+          expect(page).to have_content '0'
+        end
       end
     end
   end
@@ -71,28 +79,36 @@ feature 'vote for answer', %q{
     before do
       log_in(user) 
       visit question_path(question)
-      click_on 'Vote down'
+      within '.answers' do
+        click_on 'Vote down'
+      end
       answer.reload
     end
 
     scenario 'votes up for the second time' do 
-      click_on 'Vote up'
+      within '.answers' do
+        click_on 'Vote up'
+      end
 
       expect(page).to have_content 'You cannot vote for this answer'
     end
 
     scenario 'votes down for the second time' do
-      click_on 'Vote down'
+      within '.answers' do
+        click_on 'Vote down'
+      end
 
       expect(page).to have_content 'You cannot vote for this answer'
     end
 
     scenario 'revoke the vote' do
-      answer.reload
-      click_on 'Revote'
+      within '.answers' do
+        answer.reload
+        click_on 'Revote'
 
-      within ".raiting_#{answer.id}" do
-        expect(page).to have_content '0'
+        within ".raiting_#{answer.id}" do
+          expect(page).to have_content '0'
+        end
       end
     end
   end

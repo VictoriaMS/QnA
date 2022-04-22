@@ -4,6 +4,8 @@ $(document).ready(function(){
         $('.question-errors').html('<%= j message %>');
     <% end %>
   <% else %>
-  $('.questions').html('<%= j render @questions %>')
+    $('.card-title').html('<%= j @question.title %>')
+    $('.card-text').html('<%= j @question.body %>')
+    $('form.edit').hide()
   <% end %>
 });

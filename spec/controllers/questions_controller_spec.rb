@@ -123,7 +123,7 @@ describe QuestionsController do
 
     it 'render to destroy template' do 
       delete :destroy, params: { id: question, format: :js }
-      expect(response).to render_template :destroy
+      expect(response).to redirect_to questions_path
     end
   end
 end

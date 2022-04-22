@@ -9,9 +9,9 @@ feature 'delete the question', %q{
   given(:another_user) { create(:user) }
   given!(:question)    { create(:question, user: user) }
 
-  scenario 'Authenticated user delete own question', js: true do 
+  scenario 'Authenticated user delete own question' do 
     log_in(user) 
-    visit questions_path
+    visit question_path(question)
     click_on 'Destroy'
 
     expect(page).to_not have_content question.title
@@ -20,13 +20,13 @@ feature 'delete the question', %q{
 
   scenario 'Authenticated user delete a non-own question' do 
     log_in(another_user)
-    visit questions_path
+    visit question_path(question)
  
     expect(page).to_not have_link 'Destroy'
   end
 
   scenario 'Unauthenticated user delete question' do 
-    visit questions_path
+    visit question_path(question)
     
     expect(page).to_not have_link 'Destroy'
   end

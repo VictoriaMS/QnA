@@ -10,14 +10,14 @@ feature 'edit question', %q{
   given!(:question)     { create(:question, user: user) }
 
   scenario 'Unathenticated user to trying to edit a question' do   
-    visit questions_path
+    visit question_path(question)
 
     expect(page).to_not have_link 'Edit'
   end
 
   scenario "Authenticated user try to edit other user's question" do 
     log_in(another_user)
-    visit questions_path
+    visit question_path(question)
 
     expect(page).to_not have_link 'Edit'
   end
@@ -25,7 +25,7 @@ feature 'edit question', %q{
   describe 'Authenticated user' do 
     before do
       log_in(user)
-      visit questions_path
+      visit question_path(question)
     end
     
     scenario 'sees link to Edit' do 
@@ -42,8 +42,6 @@ feature 'edit question', %q{
       expect(page).to_not have_content question.body
       expect(page).to have_content 'edited title'
       expect(page).to have_content 'edited question'
-      expect(page).to_not have_selector 'textfield'
-      expect(page).to_not have_selector 'textarea'
     end
   end
 end

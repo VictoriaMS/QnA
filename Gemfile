@@ -35,6 +35,7 @@ gem 'devise'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'twitter-bootstrap-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'therubyracer'
 gem 'execjs'

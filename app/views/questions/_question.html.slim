@@ -1,21 +1,5 @@
-= link_to question.title, question_path(question)
-= question.body
-div[class="raiting_#{question.id}"]
-  = question.raiting
-  
-- if user_signed_in?
-  - if current_user.author_of?(question)
-    p= link_to 'Edit', '', class: 'edit-question', data: { question_id: question.id }
-    p= link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }, id: "#{question.id}", remote: true
-  - else 
-    = link_to 'Vote up', voted_up_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
-    = link_to 'Vote down', voted_down_question_path(question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
-    = link_to 'Revote', revote_question_path(question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
-br
-
-= form_with(model: question, method: :patch, remote: true, html: { id: "edit-question-#{question.id}"}, class: 'edit') do |f|
-  = f.label :title, 'Title'
-  = f.text_field :title
-  = f.label :body, 'Question'
-  = f.text_area :body
-  = f.submit 'Save'
+div.card
+  h3.card-text 
+    = link_to question.title, question_path(question)
+  div[class="raiting_#{question.id}"]
+    = question.raiting
