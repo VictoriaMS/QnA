@@ -14,11 +14,12 @@ $(document).on('turbolinks:load', function(){
 
     received: function(data) {
       let question = JSON.parse(data)
-      let question_title = question['title']
-      let question_body = question['body']
-      let question_url = 'questions/' + question['id']
+      let title = question['title']
+      let rating = question['raiting']
+      let url = 'questions/' + question['id']
+      let id = question['id']
         
-      $('.questions').append(JST['templates/question']({question_title: question_title, question_body: question_body }))
+      $('.questions').append(JST['templates/question']({ question_title: title, question_url: url, question_raiting: rating, id: id }))
     }
   });
 });

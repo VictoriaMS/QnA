@@ -1,2 +1,6 @@
-div.question-title.list-group-item
-  a href='#{@question_url}' #{@question_title}
+div.card
+  h3.card-text 
+    a href='#{@question_url}' #{@question_title}
+  div[class="raiting_#{@id}"]
+    p #{@question_raiting}
+
