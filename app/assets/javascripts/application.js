@@ -46,7 +46,6 @@ $(document).on('turbolinks:load', function(){
 function ratinOutput(e) {
   let resource = e['detail'][0]
   let resourceId = resource.id
-
   $('.raiting_' + resourceId).html(resource.raiting)
 }
 

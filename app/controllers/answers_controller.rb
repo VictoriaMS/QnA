@@ -2,10 +2,12 @@ class AnswersController < ApplicationController
   include Voted
   
   before_action :authenticate_user!, only: %i[ new create destroy]
-  before_action :set_question, only: %i[new create destroy update update_best_answer]
-  before_action :set_answer, only: %i[ destroy update update_best_answer]
+  before_action :set_question, only: %i[new create destroy update update_best_answer save_question publish_answer]
+  before_action :set_answer, only: %i[ destroy update update_best_answer publish_answer]
   before_action :set_answers_list, only: %i[ destroy update ]
+  before_action :save_user, only: %i[ create ]
 
+  after_action :publish_answer, only: [:create]
 
   def new 
     @answer = @question.answers.new
@@ -37,6 +39,15 @@ class AnswersController < ApplicationController
   end
 
   private 
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast("answers_for_question_#{@question.id}",
+    ApplicationController.render(json: @answer))
+  end
+
+  def save_user
+    gon.user = current_user if current_user
+  end
 
   def set_answers_list
     @answers = @question.answers

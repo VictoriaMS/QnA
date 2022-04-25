@@ -3,4 +3,3 @@ div.card
     a href='#{@question_url}' #{@question_title}
   div[class="raiting_#{@id}"]
     p #{@question_raiting}
-

@@ -33,4 +33,30 @@ feature 'create answer', %q{
 
     expect(page).to have_content 'You need to sign in or sign up before continuing'
   end
+
+  context 'multiple sessions', js: true do
+    scenario "answer appears on another user's page" do
+      Capybara.using_session('user') do
+        log_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('guest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        click_on 'Create Answer'
+
+        fill_in 'Body', with: 'Body answer'
+        click_on 'Create'
+  
+        expect(page).to have_text 'Body answer'
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'Body answer'
+      end
+    end
+  end
 end

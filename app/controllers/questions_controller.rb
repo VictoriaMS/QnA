@@ -1,9 +1,12 @@
 class QuestionsController < ApplicationController
   include Voted
   before_action :authenticate_user!, only: [ :new, :create, :destroy ]
-  before_action :set_question, only: [ :destroy, :show, :update, :publish_question  ]
+  before_action :set_question, only: [ :destroy, :show, :update, :publish_question, :save_question  ]
   before_action :set_questions_list, only: [ :index, :create, :update]
+  before_action :save_user, only: [:show]
+  before_action :save_question, only: [:show]
 
+  after_action :save_user, only: [ :show ]
   after_action :publish_question, only: [:create ]
 
   def index 
@@ -40,6 +43,14 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def save_question
+    gon.question = @question 
+  end
+
+  def save_user
+    gon.user = current_user if current_user
+  end
 
   def publish_question
     return if @question.errors.any?
