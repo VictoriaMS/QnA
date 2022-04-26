@@ -19,15 +19,14 @@ p
     = link_to 'Vote up', voted_up_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
     = link_to 'Vote down', voted_down_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
     = link_to 'Revote', revote_question_path(@question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
+  = link_to 'Add a comment', '', class: 'add-comment-link', data: { question_id: @question.id }
+= render 'comments/form_new_comment', question: @question, comment: @comment
+= render 'edit_form', question: @question
+br
 br
 
-= form_with(model: @question, method: :patch, remote: true, html: { id: "edit-question-#{@question.id}"}, class: 'edit') do |f|
-  = f.label :title, 'Title'
-  = f.text_field :title
-  = f.label :body, 'Question'
-  = f.text_area :body
-  = f.submit 'Save'
-
+.comments
+  = render @question.comments
 
 .answer-erros
 .answers

@@ -1,10 +1,13 @@
 class QuestionsController < ApplicationController
+  include Commented
   include Voted
-  before_action :authenticate_user!, only: [ :new, :create, :destroy ]
-  before_action :set_question, only: [ :destroy, :show, :update, :publish_question, :save_question  ]
-  before_action :set_questions_list, only: [ :index, :create, :update]
+
+  before_action :authenticate_user!, only: %i[new create destroy ]
+  before_action :set_question, only: %i[destroy show update publish_question save_question  ]
+  before_action :set_questions_list, only: %i[index create update]
   before_action :save_user, only: [:show]
   before_action :save_question, only: [:show]
+  before_action :set_object, only: %i[voted_up voted_down revote add_comment] 
 
   after_action :save_user, only: [ :show ]
   after_action :publish_question, only: [:create ]
@@ -40,6 +43,7 @@ class QuestionsController < ApplicationController
   def show 
     @answer = @question.answers.new 
     @answer.attachments.build
+    @comment = @question.comments.new
   end
 
   private

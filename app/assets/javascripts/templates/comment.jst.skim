@@ -1,0 +1,4 @@
+blockquote   
+  h5 #{@comment.body}
+  h4
+    small #{@user.email}

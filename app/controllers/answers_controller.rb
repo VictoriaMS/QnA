@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[ destroy update update_best_answer publish_answer]
   before_action :set_answers_list, only: %i[ destroy update ]
   before_action :save_user, only: %i[ create ]
+  before_action :set_object, only: %i[voted_up voted_down revote] 
 
   after_action :publish_answer, only: [:create]
 

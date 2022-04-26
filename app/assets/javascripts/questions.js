@@ -7,6 +7,21 @@ $(document).on('turbolinks:load', function(){
     $('form#edit-question-' + questionId).show();
   });
 
+  $('a.add-comment-link').click(function(e) {
+    e.preventDefault();
+    let questionId = $(this).data('questionId');
+    $(this).hide();
+    $('form#add_comment_for_question_' + questionId).show();
+  })
+  
+  $('form.add-comment').on('ajax:success', function(e) {
+    let comment = e['detail'][0]
+    let user = gon.user
+    $('form.add-comment').hide()
+    $('a.add-comment-link').show()
+    $('.comments').append(JST['templates/comment']({comment: comment, user: user}))
+  })
+
   App.cable.subscriptions.create('QuestionsChannel', {
     connected: function() {
       return this.perform('follow');
