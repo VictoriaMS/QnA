@@ -1,6 +1,10 @@
 module Voted 
   extend ActiveSupport::Concern
 
+  included do 
+    before_action :set_object, only: %i[voted_up voted_down revote]
+  end
+
   def voted_up 
     voted('vote_up')
   end

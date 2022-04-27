@@ -8,11 +8,9 @@ Rails.application.routes.draw do
     delete :revote, on: :member
   end
 
-  concern :commentable do
-    patch :add_comment, on: :member
-  end
+  resources :comments, only: [:create]
 
-  resources :questions, concerns: [:votable, :commentable] do 
+  resources :questions, concerns: :votable do 
     resources :answers, concerns: :votable do
       patch :update_best_answer, on: :member
     end

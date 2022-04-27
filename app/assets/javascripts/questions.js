@@ -17,6 +17,7 @@ $(document).on('turbolinks:load', function(){
   $('form.add-comment').on('ajax:success', function(e) {
     let comment = e['detail'][0]
     let user = gon.user
+    $('#comment_body').val('')
     $('form.add-comment').hide()
     $('a.add-comment-link').show()
     $('.comments').append(JST['templates/comment']({comment: comment, user: user}))

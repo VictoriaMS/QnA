@@ -1,0 +1,8 @@
+= form_with(model: comment, remote: true, html: { class: "add-comment", id: "add_comment_for_#{resource.class.to_s.underscore}_#{resource.id}"} ) do |f|
+  = f.hidden_field :commentable_type, value: resource.class
+  = f.hidden_field :commentable_id, value: resource.id
+  = f.label :body, 'New comment'
+  .textarea.span-10
+    = f.text_area :body
+  btn.danger
+    = f.submit 'Comment'

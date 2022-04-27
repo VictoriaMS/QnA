@@ -20,7 +20,7 @@ p
     = link_to 'Vote down', voted_down_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
     = link_to 'Revote', revote_question_path(@question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
   = link_to 'Add a comment', '', class: 'add-comment-link', data: { question_id: @question.id }
-= render 'comments/form_new_comment', question: @question, comment: @comment
+= render 'comments/form_new', resource: @question, comment: @comment
 = render 'edit_form', question: @question
 br
 br
