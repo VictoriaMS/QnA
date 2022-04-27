@@ -6,4 +6,4 @@ div[class="raiting_#{@answer.id}"]
     a.voted-up-link href="/questions/#{@answer.question_id}/answers/#{@answer.id}/voted_up" data-type='JSON' data-remote='true' data-method='patch' Vote up 
     a.voted-down-link href="/questions/#{@answer.question_id}/answers/#{@answer.id}/voted_down" data-type='JSON' data-remote='true' data-method='patch' Vote down 
     a.revote-link href="/questions/#{@answer.question_id}/answers/#{@answer.id}/revote" data-type='JSON' data-remote='tue' data-method='delete' Revote
-  
+

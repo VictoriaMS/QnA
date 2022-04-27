@@ -19,29 +19,21 @@ p
     = link_to 'Vote up', voted_up_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
     = link_to 'Vote down', voted_down_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
     = link_to 'Revote', revote_question_path(@question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
-  = link_to 'Add a comment', '', class: 'add-comment-link', data: { question_id: @question.id }
-= render 'comments/form_new', resource: @question, comment: @comment
+  = link_to 'Add a comment', '', class: 'comment-for-question-link', data: { resource_id: @question.id, resource_type: @question.humanized_class }
+= render 'comments/form_new', resource: @question, comment: @comment, resource_type: @question.humanized_class
 = render 'edit_form', question: @question
 br
 br
 
-.comments
-  = render @question.comments
+div[class="comments-for-question"]
+  = render @question.comments 
 
-.answer-erros
 .answers
   .best_answer 
     - if @question.answers.best_answer.any?
       = render 'answers/best_answer', answer: @question.answers.best_answer.first
   = render @question.answers
 
-= form_with(model: [@answer.question, @answer], method: :post, remote: true, class: 'new_answer') do |f|
-  = render 'shared/errors', resource: @answer
-  = f.label :body
-  = f.text_area :body
+.answer-errors
 
-  = f.fields_for :attachments do |attachment|
-    = render 'attachments/attachment_fields', f: attachment
-  .links 
-    = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'
-  = f.submit
+= render 'answers/form_new', answer: @answer

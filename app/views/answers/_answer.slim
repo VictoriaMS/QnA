@@ -19,6 +19,11 @@
       p = link_to 'Vote up', voted_up_question_answer_path(answer.question, answer),     method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
       p = link_to 'Vote down', voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
       p = link_to 'Revote', revote_question_answer_path(answer.question, answer),        method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
+      p = link_to 'Add a comment', '', class: 'comment-for-answer-link', data: { resource_id: answer.id, resource_type: answer.humanized_class }
     br
-    
+
     = render 'answers/form_edit', answer: answer
+    = render 'comments/form_new', resource: answer, comment: @comment, resource_type: answer.humanized_class
+
+    div[class="comments-for-answer-#{answer.id}"]
+      = render answer.comments

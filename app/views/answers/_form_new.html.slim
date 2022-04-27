@@ -1,0 +1,10 @@
+= form_with(model: [answer.question, answer], method: :post, remote: true, class: 'new_answer') do |f|
+  = render 'shared/errors', resource: answer
+  = f.label :body
+  = f.text_area :body
+
+  = f.fields_for :attachments do |attachment|
+    = render 'attachments/attachment_fields', f: attachment
+  .links 
+    = link_to_add_association 'add file', f, :attachments, partial: 'attachments/attachment_fields'
+  = f.submit

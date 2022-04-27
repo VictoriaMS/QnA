@@ -1,9 +1,24 @@
+//= require commentable
+
 $(document).on('turbolinks:load', function(){
   $('a.edit-answer').click(function(e){
     e.preventDefault();
     let answerId = $(this).data('answerId')
     $(this).toggle()
     $('form#edit-answer-' + answerId ).toggle()
+  })
+
+  $('a.comment-for-answer-link').click(function(e) {
+    e.preventDefault();
+    showForm($(this))
+  })
+
+  $('form.comment-for-answer').on('ajax:success', function(e) {
+    let comment = e['detail'][0]
+    let user = gon.user
+    let answerId = comment.commentable_id
+    hideForm('answer')
+    $('.comments-for-answer-' + answerId).append(JST['templates/comment']({comment: comment, user: user}))
   })
 
   App.cable.subscriptions.create('AnswersChannel', {
@@ -14,7 +29,7 @@ $(document).on('turbolinks:load', function(){
     received: function(data) {
       let answer = JSON.parse(data)
       let user = gon.user
-      console.log(user)
+      $('.answer-errors').html('')
 
       $('.answers').append(JST['templates/answer']({ answer: answer, user: user}))
     }
