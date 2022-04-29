@@ -29,7 +29,6 @@ $(document).on('turbolinks:load', function(){
     received: function(data) {
       let answer = JSON.parse(data)
       let user = gon.user
-      $('.answer-errors').html('')
 
       $('.answers').append(JST['templates/answer']({ answer: answer, user: user}))
     }
