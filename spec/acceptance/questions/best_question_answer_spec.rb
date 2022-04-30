@@ -5,10 +5,10 @@ feature 'choose best question answer', %q{
   As an author question
   I want to be able to choose the best answer
 } do 
-  given(:another_user) { create(:user) }
-  given(:user)  { create(:user) }
-  given!(:question) { create(:question, user: user) }
-  given!(:answers)  { create_list(:answer, 3, question: question)}
+  let(:another_user) { create(:user) }
+  let(:user)         { create(:user) }
+  let!(:question)    { create(:question, user: user) }
+  let!(:answers)     { create_list(:answer, 3, question: question)}
 
   scenario 'Unauthenticated user selects the best answer to a question' do 
     visit question_path(question)

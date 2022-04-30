@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   include Voted
   
   before_action :authenticate_user!, only: %i[ new create destroy]
-  before_action :set_question, only: %i[new create destroy update update_best_answer save_question publish_answer]
+  before_action :set_question, only: %i[new create save_question publish_answer]
   before_action :set_answer, only: %i[ destroy update update_best_answer publish_answer]
   before_action :set_answers_list, only: %i[ destroy update ]
   before_action :save_user, only: %i[ create ]
@@ -24,18 +24,18 @@ class AnswersController < ApplicationController
     @answer.destroy  
   end
 
-  def update 
+  def update  
     @answer.update(answer_params)
   end
 
   def update_best_answer
-    if @question.answers.best_answer.empty?
+    if @answer.question.answers.best_answer.empty?
       @answer.mark_best!
-      redirect_to question_path(@question)
+      redirect_to question_path(@answer.question)
     else 
-      @question.answers.best_answer.first.unmark_best!
+      @answer.question.answers.best_answer.first.unmark_best!
       @answer.mark_best!
-      redirect_to question_path(@question)
+      redirect_to question_path(@answer.question)
     end
   end
 
@@ -51,6 +51,7 @@ class AnswersController < ApplicationController
   end
 
   def set_answers_list
+    @question = @answer.question
     @answers = @question.answers
   end
 
@@ -59,7 +60,7 @@ class AnswersController < ApplicationController
   end
 
   def set_question 
-    @question = Question.find(params[:question_id])
+    @question = Question.find(params[:question_id]) 
   end
 
   def answer_params

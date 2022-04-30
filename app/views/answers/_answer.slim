@@ -9,21 +9,21 @@
 
   - if user_signed_in? 
     - if current_user.author_of?(answer.question)
-      = link_to 'Best answer', update_best_answer_question_answer_path(answer.question, answer), method: :patch, id: "best_answer_#{answer.id}",
+      = link_to 'Best answer', update_best_answer_answer_path(answer), method: :patch, id: "best_answer_#{answer.id}",
                                         data: { answer_id: answer.id, confirm: 'Do you want to make this the best answer for your question?' }
 
     - if current_user.author_of?(answer)
-      p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
+      p = link_to 'Delete answer', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
       p = link_to 'Edit', '', class: 'edit-answer', data: { answer_id: answer.id }
     - else 
-      p = link_to 'Vote up', voted_up_question_answer_path(answer.question, answer),     method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
-      p = link_to 'Vote down', voted_down_question_answer_path(answer.question, answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
-      p = link_to 'Revote', revote_question_answer_path(answer.question, answer),        method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
+      p = link_to 'Vote up', voted_up_answer_path(answer),     method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
+      p = link_to 'Vote down', voted_down_answer_path(answer), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
+      p = link_to 'Revote', revote_answer_path(answer),        method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
       p = link_to 'Add a comment', '', class: 'comment-for-answer-link', data: { resource_id: answer.id, resource_type: answer.humanized_class }
     br
 
-    = render 'answers/form_edit', answer: answer
-    = render 'comments/form_new', resource: answer, comment: @comment, resource_type: answer.humanized_class
+  = render 'answers/form_edit', answer: answer
+  = render 'comments/form_new', resource: answer, comment: answer.comments.build, resource_type: answer.humanized_class
 
-    div[class="comments-for-answer-#{answer.id}"]
-      = render answer.comments
+  div[class="comments-for-answer-#{answer.id}"]
+    = render answer.comments

@@ -7,7 +7,7 @@ strong
       = render 'attachments/attachments', resource: answer
       
 - if current_user.author_of?(answer)
-  p = link_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
+  p = link_to 'Delete answer', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' }, id: answer.id, remote: true 
   p = link_to 'Edit', '', class: 'edit-answer', data: { answer_id: answer.id }
 br
 
