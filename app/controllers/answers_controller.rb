@@ -7,39 +7,44 @@ class AnswersController < ApplicationController
   before_action :set_answers_list, only: %i[ destroy update ]
   before_action :save_user, only: %i[ create ]
   before_action :set_object, only: %i[voted_up voted_down revote] 
+  before_action :set_best_answer, only: :update_best_answer
 
   after_action :publish_answer, only: [:create]
 
+  respond_to :html 
+  respond_to :js, only: %i[create destroy update]
+
   def new 
-    @answer = @question.answers.new
+    respond_with(@answer = @question.answers.new)
   end
 
   def create 
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    @answer.save
+    respond_with(@answer = @question.answers.create(answer_params.merge(user: current_user)))
   end
 
   def destroy
-    @answer.destroy  
+    respond_with(@answer.destroy)  
   end
 
   def update  
     @answer.update(answer_params)
+    respond_with @answer
   end
 
   def update_best_answer
-    if @answer.question.answers.best_answer.empty?
-      @answer.mark_best!
-      redirect_to question_path(@answer.question)
-    else 
-      @answer.question.answers.best_answer.first.unmark_best!
-      @answer.mark_best!
-      redirect_to question_path(@answer.question)
-    end
+    respond_with @answer,  location: -> { question_path(@answer.question) }
   end
 
   private 
+
+  def set_best_answer
+    if @answer.question.answers.best_answer.empty?
+      @answer.mark_best!
+    else 
+      @answer.re_mark_best!
+    end
+  end
+  
   def publish_answer
     return if @answer.errors.any?
     ActionCable.server.broadcast("answers_for_question_#{@question.id}",

@@ -19,4 +19,9 @@ class Answer < ApplicationRecord
   def unmark_best!
     update(best_answer: false)
   end
+
+  def re_mark_best!
+    question.answers.best_answer.first.unmark_best!
+    self.mark_best!
+  end
 end
