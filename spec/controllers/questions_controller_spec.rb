@@ -11,10 +11,6 @@ describe QuestionsController do
       expect(assigns(:question)).to be_a_new(Question)
     end
 
-    it 'assigns a new attachment for question' do
-      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
-    end
-
     it 'renders new view' do 
       expect(response).to render_template :new
     end
@@ -29,10 +25,6 @@ describe QuestionsController do
 
     it 'assigns the new answer for question' do 
       expect(assigns(:answer)).to be_a_new(Answer)
-    end
-
-    it 'assigns the new attachments for answer' do
-      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
     end
 
     it 'renders show view' do
@@ -118,11 +110,11 @@ describe QuestionsController do
     before { question }
 
     it 'deletes question' do 
-      expect { delete :destroy, params: {id: question, format: :js} }.to change(Question, :count).by(-1)
+      expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
     end
 
     it 'render to destroy template' do 
-      delete :destroy, params: { id: question, format: :js }
+      delete :destroy, params: { id: question }
       expect(response).to redirect_to questions_path
     end
   end

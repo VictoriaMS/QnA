@@ -4,44 +4,38 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create destroy ]
   before_action :set_question, only: %i[destroy show update publish_question save_question  ]
   before_action :set_questions_list, only: %i[index create update]
-  before_action :save_user, only: [:show]
-  before_action :save_question, only: [:show]
+  before_action :create_answer, only: :show
+  before_action :save_user, only: :show
+  before_action :save_question, only: :show
 
-  after_action :save_user, only: [ :show ]
   after_action :publish_question, only: [:create ]
 
+  respond_to :html
+  respond_to :js, only: :update
+
   def index 
+    respond_with @questions
   end 
 
   def new
-    @question = Question.new
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
 
   def create 
-    @question = current_user.questions.new(question_params)
-    
-    if @question.save
-      redirect_to @question, notice: 'Your question successfully created' 
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end 
 
   def update
     @question.update(question_params)
+    respond_with @question
   end
 
   def destroy
-    @questions = Question.all
-    @question.destroy
-    redirect_to questions_path
+    respond_with(@question.destroy)
   end
 
-  def show 
-    @answer = @question.answers.new 
-    @answer.attachments.build
-    @comment = @question.comments.new
+  def show
+    respond_with @question
   end
 
   private
@@ -60,6 +54,10 @@ class QuestionsController < ApplicationController
       'questions',
       ApplicationController.render( json: @question)
     )
+  end
+
+  def create_answer
+    @answer = @question.answers.new
   end
 
   def set_questions_list

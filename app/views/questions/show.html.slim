@@ -21,7 +21,7 @@ p
     = link_to 'Revote', revote_question_path(@question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
   = link_to 'Add a comment', '', class: 'comment-for-question-link', data: { resource_id: @question.id, resource_type: @question.humanized_class }
 
-= render 'comments/form_new', resource: @question, comment: @comment, resource_type: @question.humanized_class
+= render 'comments/form_new', resource: @question, comment: @question.comments.build, resource_type: @question.humanized_class
 
 = render 'edit_form', question: @question
 br
