@@ -10,7 +10,6 @@ class QuestionsController < ApplicationController
 
   after_action :publish_question, only: [:create ]
 
-  respond_to :html
   respond_to :js, only: :update
 
   def index 

@@ -10,8 +10,7 @@ class AnswersController < ApplicationController
   before_action :set_best_answer, only: :update_best_answer
 
   after_action :publish_answer, only: [:create]
-
-  respond_to :html 
+  
   respond_to :js, only: %i[create destroy update]
 
   def new 
