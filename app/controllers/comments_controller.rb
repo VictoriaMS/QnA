@@ -3,11 +3,10 @@ class CommentsController < ApplicationController
   before_action :set_resource, only: :create
   after_action :publish_comment, only: :create
 
+  respond_to :json, only: :create
+
   def create 
-    @comment = @resource.comments.build(comment_params)
-    @comment.user = current_user
-    @comment.save
-    respond_to { |format| format.json { render json: @comment } }
+    respond_with (@comment = @resource.comments.create(comment_params.merge(user: current_user)))
   end
 
   private 

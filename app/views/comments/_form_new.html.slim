@@ -1,4 +1,4 @@
-= form_with(model: [resource, comment], remote: true, html: { class: "comment-for-#{resource_type}", id: "comment_for_#{resource_type}_#{resource.id}"} ) do |f|
+= form_with(model: [resource, comment], remote: true, html: { data: { type: "json" }, class: "comment-for-#{resource_type}", id: "comment_for_#{resource_type}_#{resource.id}"} ) do |f|
   = f.label :body, 'New comment'
   .textarea.span-10
     = f.text_area :body
