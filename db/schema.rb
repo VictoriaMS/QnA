@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_25_123651) do
+ActiveRecord::Schema.define(version: 2022_05_05_195503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_123651) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_123651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_votes_on_user_id"
+    t.index ["votable_id", "votable_type"], name: "index_votes_on_votable_id_and_votable_type"
     t.index ["votable_id"], name: "index_votes_on_votable_id"
   end
 
