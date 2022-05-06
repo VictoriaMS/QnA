@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.configure do |config|
   config.include AcceptanceMacros, type: :feature
+  config.include OmniauthMacros
 
   config.use_transactional_fixtures = false
 
