@@ -1,0 +1,7 @@
+h3 Please enter your email to continue
+
+= form_with url: devise_registrations_confirmation_request_path, local: true do |f|
+  = f.label :email
+  = f.text_field :email 
+  = f.submit 'Сonfirm'
+end

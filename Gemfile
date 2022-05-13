@@ -48,6 +48,7 @@ gem 'sprockets-rails'
 gem 'responders', '~> 2.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'omniauth-rails_csrf_protection'
 gem 'capybara-email'
 
@@ -62,6 +63,7 @@ group :development, :test do
   gem 'carrierwave'
   gem 'remotipart'
   gem 'cocoon'
+  gem 'letter_opener'
 end
 
 group :development do
