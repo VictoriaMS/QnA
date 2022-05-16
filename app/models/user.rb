@@ -16,23 +16,27 @@ class User < ApplicationRecord
     resource.votes.where(user_id: id).any?
   end
 
-  def self.find_for_oauth(auth)
-    authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
+  def self.find_for_oauth(session)
+    authorization = Authorization.where(provider: session[:provider], uid: session[:uid].to_s).first
     return authorization.user if authorization
     
-    email = auth.info[:email]
+    email = session[:email]
     user = User.find_by(email: email)
     if user
-      user.create_authorization(auth)
+      user.create_authorization(session)
     else 
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password, password_confirmation: password )
-      user.create_authorization(auth)
+      user.create_authorization(session)
     end
     user
   end
 
-  def create_authorization(auth)
-    authorizations.create(provider: auth.provider, uid: auth.uid)
+  def self.find_by_auth(provider, uid)
+    joins(:authorizations).where(authorizations: { provider: provider, uid: uid.to_s }).first
+  end
+
+  def create_authorization(session)
+    authorizations.create(provider: session[:provider], uid: session[:uid].to_s)
   end
 end
