@@ -31,14 +31,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: session[:provider]) if is_navigational_format?     
     else
       redirect_to root_path
-      set_flash_message(:notice, :failure, kind: session[:provider], reason: 'You need to cinfirm email') if is_navigational_format?
+      set_flash_message(:notice, :failure, kind: session[:provider], reason: 'You need to confirm email') if is_navigational_format?
     end
   end
 
   def authenticate(auth)
     session[:provider] = auth.provider 
     session[:uid] = auth.uid 
-    session[:email] = auth.email
+    session[:email] = auth.info[:email]
 
     if session[:email].blank?
       check_user(session)

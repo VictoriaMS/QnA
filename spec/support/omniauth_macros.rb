@@ -7,4 +7,13 @@ module OmniauthMacros
       credentials: { token: 'mock_token', secret: 'mock_secret' }
     })
   end
+
+  def twitter_mock_auth_hash
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+      provider: 'twitter',
+      uid: '234567',
+      info: {email: nil},
+      credentials: { token: 'mock_token', secret: 'mock_secret' }
+    })
+  end
 end

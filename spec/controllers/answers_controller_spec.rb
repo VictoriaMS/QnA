@@ -7,8 +7,7 @@ describe AnswersController do
     log_in_user
     
     context 'with valid attributes' do 
-      let(:valid_answer_attributes) { post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js} }
-
+      let(:valid_answer_attributes) { post :create, params: { answer: attributes_for(:answer), question_id: question.id, format: :js} }
       it 'saves the new answer in the database' do 
         expect{ valid_answer_attributes }.to change(question.answers, :count).by(1)
       end
