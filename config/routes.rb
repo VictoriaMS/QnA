@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks', confirmations: 'confirmations' } 
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' } 
 
   devise_scope :user do
     post :set_email, controller: :omniauth_callbacks, as: :set_user_email
