@@ -88,4 +88,22 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '.find_by_auth' do 
+    let!(:user) { create(:user) }
+    let!(:auth)  { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
+    
+    context 'user already has authorization' do
+      it 'returns the user' do
+        user.authorizations.create(provider: 'facebook', uid: '123456')
+        expect(User.find_by_auth(auth.provider, auth.uid)).to eq user
+      end
+    end
+
+    context 'user has not authoriation' do 
+      it 'dont return the user' do 
+        expect(User.find_by_auth(auth.provider, auth.uid)).to eq nil
+      end
+    end
+  end
 end
