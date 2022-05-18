@@ -8,4 +8,11 @@ FactoryBot.define do
     password              { '123456' } 
     password_confirmation { '123456' } 
   end
+
+  factory :admin, class: User do 
+    email
+    password              { '123456' } 
+    password_confirmation { '123456' } 
+    admin { true }
+  end
 end
