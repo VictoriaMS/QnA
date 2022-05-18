@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
   include Voted
-
   before_action :authenticate_user!, only: %i[new create destroy ]
   before_action :set_question, only: %i[destroy show update publish_question save_question  ]
   before_action :set_questions_list, only: %i[index create update]
@@ -9,6 +8,8 @@ class QuestionsController < ApplicationController
   before_action :save_question, only: :show
 
   after_action :publish_question, only: [:create ]
+
+  authorize_resource except: [:voted_up, :vote_down, :revote]
 
   respond_to :js, only: :update
 

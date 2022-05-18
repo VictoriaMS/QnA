@@ -60,7 +60,8 @@ describe QuestionsController do
   end
 
   describe 'PATCH #update' do
-    let(:question) { create(:question, title: 'title question', body: 'body question') }
+    log_in_user
+    let(:question) { create(:question, title: 'title question', body: 'body question', user: @user) }
 
     context 'valid_attributes' do 
       it 'assigns the requested question to @question' do 
@@ -107,7 +108,7 @@ describe QuestionsController do
 
   describe 'DELETE #destroy' do 
     log_in_user
-    before { question }
+    let!(:question) { create(:question, user: @user) }
 
     it 'deletes question' do 
       expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
