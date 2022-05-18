@@ -21,15 +21,25 @@ class Ability
 
   def admin_abilities
     can :manage, :all
+    cannot :voted_down, [Question, Answer]
+    cannot :voted_up, [Question, Answer]
+    cannot :revote, [Question, Answer]
+    cannot :update_best_answer, Answer
   end
 
   def user_abilities
     guest_abilities
-    can :create, Question 
-    can :update, Question, user: user
-    can :destroy, Question, user: user
-    can :voted_down, Question
-    can :vote_up, Question
-    can :revote, Question 
+    can :create, [Question, Answer] 
+    can :update, [Question, Answer], user: user
+    can :destroy, [Question, Answer], user: user
+    can :voted_down, [Question, Answer]
+    can :voted_up, [Question, Answer]
+    can :revote, [Question, Answer]
+    cannot :voted_down, [Question, Answer], user: user 
+    cannot :voted_up, [Question, Answer], user: user
+    cannot :revote, [Question, Answer], user: user
+    can :update_best_answer, Answer do |answer| 
+      answer.question.user == user
+    end
   end
 end

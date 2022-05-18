@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
 
   after_action :publish_question, only: [:create ]
 
-  authorize_resource except: [:voted_up, :vote_down, :revote]
+  authorize_resource
 
   respond_to :js, only: :update
 

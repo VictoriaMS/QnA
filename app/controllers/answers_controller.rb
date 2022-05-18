@@ -10,6 +10,8 @@ class AnswersController < ApplicationController
   before_action :set_best_answer, only: :update_best_answer
 
   after_action :publish_answer, only: [:create]
+
+  authorize_resource
   
   respond_to :js, only: %i[create destroy update]
 
