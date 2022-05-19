@@ -7,15 +7,17 @@ feature 'delete the answer', %q{
 } do 
   let!(:user)         { create(:user) }
   let!(:another_user) { create(:user) }
-  let!(:question)     { create(:question, user: another_user) }
-  let!(:answer)       { create(:answer, user: user, question: question) }
+  let!(:question)     { create(:question) }
+  let!(:answer)       { create(:answer, question: question, user: user) }
 
   scenario 'Authenticated user delete own answer', js: true do 
     log_in(user) 
     visit question_path(question)
-    click_on 'Delete answer'
 
-    expect(page).to_not have_content answer.body
+    within '.answers' do
+      click_on 'Delete answer'
+      expect(page).to_not have_content answer.body
+    end
   end
 
   scenario 'Authenticated user delete a non-own answer' do 
