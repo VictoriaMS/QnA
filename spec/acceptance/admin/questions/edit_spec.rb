@@ -11,10 +11,12 @@ feature 'admin edit question', %q{
   let!(:admin_question) { create(:question, user: admin) }
   let!(:user_question)  { create(:question, user: user) }
 
-  scenario "Admin edit own question" do 
+  before do 
     log_in(admin)
     visit question_path(admin_question)
+  end
 
+  scenario "Admin edit own question" do 
     click_on 'Edit'
     fill_in 'Title', with: 'edited title'
     fill_in 'Question', with: 'edited question'
@@ -27,9 +29,6 @@ feature 'admin edit question', %q{
   end
 
   scenario "Admin edit user question" do 
-    log_in(admin)
-    visit question_path(user_question)
-
     click_on 'Edit'
     fill_in 'Title', with: 'edited title'
     fill_in 'Question', with: 'edited question'

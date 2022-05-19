@@ -14,7 +14,6 @@ feature 'admin delete answer', %q{
     scenario 'admin delete answer', js: true do
       log_in(admin)
       visit question_path(question)
-
       within '.answers' do
         click_on 'Delete answer'
         expect(page).to_not have_content admin_answer.body
@@ -22,17 +21,18 @@ feature 'admin delete answer', %q{
     end
   end
 
-  context 'user answer' do 
+
+  context 'admin answer' do 
     let!(:user_answer) { create(:answer, question: question) }
 
     scenario 'admin delete answer', js: true do
       log_in(admin)
       visit question_path(question)
-
       within '.answers' do
         click_on 'Delete answer'
         expect(page).to_not have_content user_answer.body
       end
     end
   end
+  
 end
