@@ -15,6 +15,13 @@ RSpec.describe Ability, type: :model do
     let!(:user) { create(:user, admin: true) }
     
     it { should be_able_to :manage, :all }
+    it { should_not be_able_to :voted_up, create(:question) }
+    it { should_not be_able_to :voted_down, create(:question) }
+    it { should_not be_able_to :revote, create(:question) }
+
+    it { should_not be_able_to :voted_up, create(:answer) }
+    it { should_not be_able_to :voted_down, create(:answer) }
+    it { should_not be_able_to :revote, create(:answer) }
   end
 
   describe 'for user' do 

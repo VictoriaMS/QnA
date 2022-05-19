@@ -34,5 +34,4 @@ feature 'admin delete answer', %q{
       end
     end
   end
-  
 end
