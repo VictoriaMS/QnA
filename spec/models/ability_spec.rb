@@ -31,7 +31,10 @@ RSpec.describe Ability, type: :model do
     it { should_not be_able_to :manage, :all }
     it { should be_able_to :read, :all }
 
-    context 'rights to manage questions' do 
+    context 'rights to manage questions' do
+      let!(:question)       { create(:question) } 
+      let!(:question_vote) { create(:vote, user_id: user.id, votable: question, value: 1) }
+
       it { should be_able_to :create, Question }
     
       it { should be_able_to :update, create(:question, user: user), user: user }
@@ -42,7 +45,7 @@ RSpec.describe Ability, type: :model do
 
       it { should be_able_to :voted_up, create(:question), user: user}
       it { should be_able_to :voted_down, create(:question), user: user}
-      it { should be_able_to :revote, create(:question), user: user}
+      it { should be_able_to :revote, question.reload, user: user}
 
       it { should_not be_able_to :voted_up, create(:question, user: user), user: user}
       it { should_not be_able_to :voted_down, create(:question, user: user), user: user}
@@ -52,6 +55,8 @@ RSpec.describe Ability, type: :model do
     context 'rights to manage answers' do 
       let(:question) { create(:question, user: user) }
       let(:other_question) { create(:question, user: create(:user)) }
+      let!(:answer)        { create(:answer) } 
+      let!(:answer_vote)   { create(:vote, user_id: user.id, votable: answer, value: 1) }
 
       it { should be_able_to :create, Answer }
       
@@ -63,14 +68,18 @@ RSpec.describe Ability, type: :model do
 
       it { should be_able_to :voted_up, create(:answer), user: user}
       it { should be_able_to :voted_down, create(:answer), user: user}
-      it { should be_able_to :revote, create(:answer), user: user}
+      it { should be_able_to :revote, answer.reload , user: user}
 
-      it { should_not be_able_to :voted_up, create(:answer, user: user), user: user}
-      it { should_not be_able_to :voted_down, create(:answer, user: user), user: user}
-      it { should_not be_able_to :revote, create(:answer, user: user), user: user}
+      it { should_not be_able_to :voted_up, create(:answer, user: user) }
+      it { should_not be_able_to :voted_down, create(:answer, user: user), user: user }
+      it { should_not be_able_to :revote, create(:answer, user: user), user: user }
 
-      it { should be_able_to :update_best_answer, create(:answer, question: question), user: user }
+      it { should be_able_to :update_best_answer, create(:answer, question: question) }
       it { should_not be_able_to :update_best_answer, create(:answer, question: other_question), user: user }
+    end
+
+    context 'rights to manage comment' do 
+     it { should be_able_to :create, Comment }
     end
   end
 end

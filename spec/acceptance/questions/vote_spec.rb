@@ -81,7 +81,7 @@ feature 'vote for question', %q{
       expect(page).to have_content 'You cannot vote for this question'
     end
 
-    scenario 'revoke the vote' do 
+    scenario 'revote the vote' do
       click_on 'Revote'
 
       within ".raiting_#{question.id}" do 

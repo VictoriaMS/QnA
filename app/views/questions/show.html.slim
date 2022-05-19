@@ -21,7 +21,8 @@ p
   = link_to 'Vote up', voted_up_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-up-link'
 - if can?(:voted_down, @question)
   = link_to 'Vote down', voted_down_question_path(@question), method: :patch, remote: true, data: { type: JSON }, class: 'voted-down-link'
-- if can?(:revote, @question)
+- if user_signed_in? 
+  - unless current_user.author_of?(@question)
   = link_to 'Revote', revote_question_path(@question), method: :delete, remote: true, data: { type: JSON }, class: 'revote-link'
 
 - if user_signed_in? 

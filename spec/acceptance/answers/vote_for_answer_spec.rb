@@ -65,6 +65,7 @@ feature 'vote for answer', %q{
     end
 
     scenario 'revoke the vote' do
+      visit question_path(question)
       within '.answers' do
         click_on 'Revote'
 
@@ -102,6 +103,7 @@ feature 'vote for answer', %q{
     end
 
     scenario 'revoke the vote' do
+      visit question_path(question)
       within '.answers' do
         answer.reload
         click_on 'Revote'

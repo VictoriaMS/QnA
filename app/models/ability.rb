@@ -29,17 +29,14 @@ class Ability
 
   def user_abilities
     guest_abilities
-    can :create, [Question, Answer] 
-    can :update, [Question, Answer], user: user
-    can :destroy, [Question, Answer], user: user
-    can :voted_down, [Question, Answer]
-    can :voted_up, [Question, Answer]
-    can :revote, [Question, Answer]
-    cannot :voted_down, [Question, Answer], user: user 
-    cannot :voted_up, [Question, Answer], user: user
-    cannot :revote, [Question, Answer], user: user
-    can :update_best_answer, Answer do |answer| 
-      answer.question.user == user
+    can :create, [Question, Answer, Comment] 
+    can [:update, :destroy], [Question, Answer], user_id: user.id
+    can [:voted_down, :voted_up], [Question, Answer] do  |votable| 
+      !user.author_of?(votable) 
     end
+    can :revote, [Question, Answer] do |votable|
+      user.voted?(votable) 
+    end
+    can :update_best_answer, Answer, question: {user_id: user.id }
   end
 end

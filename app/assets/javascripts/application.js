@@ -47,6 +47,7 @@ function ratinOutput(e) {
   let resource = e['detail'][0]
   let resourceId = resource.id
   $('.raiting_' + resourceId).html(resource.raiting)
+  $('.revote-link').show()
 }
 
 function alertOutput(e){
