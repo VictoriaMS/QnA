@@ -65,6 +65,7 @@ group :development, :test do
   gem 'cocoon'
   gem 'letter_opener'
   gem 'capybara-email'
+  gem 'doorkeeper', '4.2.6'
 end
 
 group :development do
