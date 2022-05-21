@@ -67,6 +67,7 @@ feature 'vote for answer', %q{
     scenario 'revoke the vote' do
       visit question_path(question)
       within '.answers' do
+        answer.reload
         click_on 'Revote'
 
         within ".raiting_#{answer.id}" do
@@ -100,18 +101,6 @@ feature 'vote for answer', %q{
       end
 
       expect(page).to have_content 'You cannot vote for this answer'
-    end
-
-    scenario 'revoke the vote' do
-      visit question_path(question)
-      within '.answers' do
-        answer.reload
-        click_on 'Revote'
-
-        within ".raiting_#{answer.id}" do
-          expect(page).to have_content '0'
-        end
-      end
     end
   end
 
