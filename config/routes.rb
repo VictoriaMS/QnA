@@ -33,5 +33,13 @@ Rails.application.routes.draw do
   
   root 'questions#index'
 
+  namespace :api do
+    namespace :v1 do
+      resource :profiles do
+        get :me, on: :collection
+      end
+    end
+  end
+
   mount ActionCable.server => '/cable'
 end
