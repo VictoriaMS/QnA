@@ -1,6 +1,6 @@
 class Api::V1::BaseController < ApplicationController
   before_action :doorkeeper_authorize!
-  before_action :current_resourse_owner, only: [:me, :index]
+  before_action :current_resourse_owner
 
   respond_to :json
 
