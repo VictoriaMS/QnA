@@ -49,7 +49,7 @@ class AnswersController < ApplicationController
   def publish_answer
     return if @answer.errors.any?
     ActionCable.server.broadcast("answers_for_question_#{@question.id}",
-    ApplicationController.render(json: @answer))
+    AnswerSerializer.new(@answer).to_json)
   end
 
   def save_user

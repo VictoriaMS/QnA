@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
       return if @comment.errors.any?
       ActionCable.server.broadcast(
       "question_#{@comment.commentable_id}_comments",
-      ApplicationController.render(json: @comment ))
+      CommentSerializer.new(@comment).to_json)
     end
   end
 

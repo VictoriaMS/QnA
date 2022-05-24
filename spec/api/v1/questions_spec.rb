@@ -93,8 +93,8 @@ describe 'Questions API' do
 
         %w(id file created_at updated_at attachment_id attachment_type).each do |attr|
           it "attachment object does not contains #{ attr }" do 
-           expect(response.body).to_not have_json_path("question/attachments/0/#{ attr }")
-        end
+            expect(response.body).to_not have_json_path("question/attachments/0/#{ attr }")
+          end
         end
       end
     end

@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function(){
   })
 
   $('form.comment-for-answer').on('ajax:success', function(e) {
-    let comment = e['detail'][0]
+    let comment = e['detail'][0].comment
     let user = gon.user
     let answerId = comment.commentable_id
     hideForm('answer')

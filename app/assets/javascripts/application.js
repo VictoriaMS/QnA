@@ -45,8 +45,10 @@ $(document).on('turbolinks:load', function(){
 
 function ratinOutput(e) {
   let resource = e['detail'][0]
-  let resourceId = resource.id
-  $('.raiting_' + resourceId).html(resource.raiting)
+  let object = resource.answer || resource.question
+  let resourceId = object.id
+  console.log(object.raiting)
+  $('.raiting_' + resourceId).html(object.raiting)
   $('.revote-link').show()
 }
 

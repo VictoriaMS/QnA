@@ -1,5 +1,4 @@
 function showForm(link) {
-  console.log(link.data('resourceType'))
   let resourceId = link.data('resourceId');
   let resourceType = link.data('resourceType')
   link.hide()
