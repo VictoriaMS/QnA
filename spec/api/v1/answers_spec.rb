@@ -54,8 +54,8 @@ describe 'Answers API' do
 
     context 'authorized' do 
       let(:access_token) { create(:access_token) }
-      let!(:answer)   { create(:answer) }
-      let!(:comments) { create_list(:comment, 3, commentable: answer) }
+      let!(:answer)      { create(:answer) }
+      let!(:comments)    { create_list(:comment, 3, commentable: answer) }
       let!(:attachments) { create_list(:attachment, 3, attachable: answer) }
 
       before { get "/api/v1/answers/#{ answer.id }", params: { format: :json, access_token: access_token.token } }
@@ -98,5 +98,63 @@ describe 'Answers API' do
         end
       end
     end    
+  end
+
+  describe 'POST /create' do 
+    let(:question) { create(:question) }
+    describe 'unauthorized' do 
+      it 'returns 401 status if there is no acess_token' do 
+        post "/api/v1/questions/#{ question.id }/answers", params: { format: :json }
+        expect(response.status).to eq 401 
+      end
+
+      it 'returns 401 status if access_token is invalid' do 
+        post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: '1234'}
+        expect(response.status).to eq 401
+      end
+    end
+
+    describe 'authorized' do 
+      let(:access_token) { create(:access_token) }
+      let(:user)         { create(:user) }
+
+      context 'with valid attributes' do 
+        it 'returns 200 status' do 
+          post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, 
+                                       answer: attributes_for(:answer, question_id: question.id, user_id: user.id) }
+          expect(response).to be_success
+        end
+
+        it 'changes the number of answer' do 
+          expect{  post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, 
+                  answer: attributes_for(:answer, question_id: question.id, user_id: user.id) } }.to change(question.answers, :count).by(1) 
+        end
+
+        %w(body raiting best_answer created_at updated_at).each do |attr|
+          it "contains path for #{ attr }" do
+            post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, 
+                                         answer: attributes_for(:answer, question_id: question.id, user_id: user.id) }
+            expect(response.body).to have_json_path("answer/#{attr}")
+          end
+        end
+      end
+
+      context 'with valid attributes' do 
+        it 'returns 422 status' do 
+           post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, answer: {body: nil} }
+          expect(response.status).to eq 422
+        end
+
+        it 'doest not saves answer' do 
+          expect{  post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, 
+                                          answer: {body: nil} } }.to_not change(question.answers, :count)
+        end
+
+        it 'contains errors' do 
+          post "/api/v1/questions/#{ question.id }/answers", params: { format: :json, access_token: access_token.token, answer: {body: nil} }
+          expect(response.body).to have_json_path('errors')
+        end
+      end
+    end
   end
 end
