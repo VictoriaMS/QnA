@@ -99,4 +99,60 @@ describe 'Questions API' do
       end
     end
   end
+
+  describe 'GET /create' do 
+    describe 'unauthorized' do 
+      it 'returns 401 status if there is no acess_token' do 
+
+        post '/api/v1/questions', params: { format: :json }
+        expect(response.status).to eq 401 
+      end
+
+      it 'returns 401 status if access_token is invalid' do 
+        post '/api/v1/questions', params: { format: :json, access_token: '1234'}
+        expect(response.status).to eq 401
+      end
+    end
+
+    describe 'authorized' do
+      let(:access_token) { create(:access_token) }
+      let(:user) { create(:user) }
+
+      context 'with valid attributes' do 
+        it 'returns 200 status' do
+          post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question, user_id: user.id  ) } 
+          expect(response).to be_success
+        end
+
+        it 'changes amount question' do 
+          expect{ post'/api/v1/questions', params: { format: :json, access_token: access_token.token, 
+                  question: attributes_for(:question, user_id: user.id) } }.to change(Question, :count).by(1)
+        end 
+
+        %w(title body created_at updated_at raiting).each do |attr|
+          it "contains path for #{ attr }" do 
+            post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question, user_id: user.id) } 
+            expect(response.body).to have_json_path("question/#{ attr }")
+          end
+        end
+      end
+
+      context 'with invalid attributes' do 
+        it 'returns 422 status' do
+          post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: {title: nil, body: nil} } 
+          expect(response.status).to eq 422
+        end
+
+        it 'does not save question' do 
+          expect{ post'/api/v1/questions', params: { format: :json, access_token: access_token.token, 
+                  question: { title: nil, body: nil } } }.to_not change(Question, :count)
+        end
+
+        it 'returns errors' do 
+          post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: {title: nil, body: nil} } 
+          expect(response.body).to have_json_path('errors')
+        end
+      end
+    end
+  end
 end
