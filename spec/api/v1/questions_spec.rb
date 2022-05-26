@@ -115,23 +115,23 @@ describe 'Questions API' do
     end
 
     describe 'authorized' do
-      let(:access_token) { create(:access_token) }
-      let(:user) { create(:user) }
+      let(:admin) { create(:admin) }
+      let(:access_token) { create(:access_token, resource_owner_id: admin.id) }
 
       context 'with valid attributes' do 
         it 'returns 200 status' do
-          post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question, user_id: user.id  ) } 
+          post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question) }
           expect(response).to be_success
         end
 
         it 'changes amount question' do 
           expect{ post'/api/v1/questions', params: { format: :json, access_token: access_token.token, 
-                  question: attributes_for(:question, user_id: user.id) } }.to change(Question, :count).by(1)
+                  question: attributes_for(:question) } }.to change(Question, :count).by(1)
         end 
 
         %w(title body created_at updated_at raiting).each do |attr|
           it "contains path for #{ attr }" do 
-            post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question, user_id: user.id) } 
+            post'/api/v1/questions', params: { format: :json, access_token: access_token.token, question: attributes_for(:question) } 
             expect(response.body).to have_json_path("question/#{ attr }")
           end
         end

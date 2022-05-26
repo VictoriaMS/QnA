@@ -1,4 +1,6 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
+  authorize_resource
+  
   def index 
     @questions = Question.all
     respond_with @questions, each_serializer: QuestionsSerializer
@@ -10,13 +12,13 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def create
-    @question = Question.create(question_params)
+    @question = Question.create(question_params.merge(user: current_resourse_owner ))
     respond_with @question, serializer: QuestionSerializer
   end
 
   private 
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id)
+    params.require(:question).permit(:title, :body)
   end
 end 
