@@ -2,6 +2,9 @@ require 'rails_helper'
 
 describe QuestionsController do
   let(:question) { create(:question) }
+  let(:subject)  { create(:question)}
+
+  it_behaves_like 'Votable for controller'
 
   describe 'GET #new' do
     log_in_user
