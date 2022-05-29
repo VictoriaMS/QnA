@@ -2,6 +2,9 @@ require 'rails_helper'
 
 describe AnswersController do
   let(:question) { create(:question) }
+  let(:subject)  { create(:answer) }
+
+  it_behaves_like 'Votable for controller'
 
   describe 'POST #create' do  
     log_in_user
