@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_140934) do
   create_table "question_subscribes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "question_id"
-    t.boolean "subscribe", default: false
     t.index ["question_id"], name: "index_question_subscribes_on_question_id"
     t.index ["user_id"], name: "index_question_subscribes_on_user_id"
   end

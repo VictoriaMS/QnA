@@ -9,6 +9,10 @@ class User < ApplicationRecord
   has_many :authorizations
   has_many :question_subscribes, dependent: :destroy
 
+  def have_subscribe?(question)
+    question_subscribes.where(question_id: question.id).any?
+  end
+
   def author_of?(resource)
     id == resource.user_id
   end

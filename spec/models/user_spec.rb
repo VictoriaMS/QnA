@@ -107,4 +107,20 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#have_subscribes?' do 
+    let!(:user) { create(:user) }
+    let!(:question) { create(:question) }
+    let(:question_for_subscribe) { create(:question) }
+    let!(:subscribe) { QuestionSubscribe.create(user_id: user.id, question_id: question_for_subscribe.id) }
+
+
+    it 'retirns false' do 
+      expect(user).to be_have_subscribe(question_for_subscribe)
+    end
+
+    it 'returns true' do 
+      expect(user).to_not be_have_subscribe(question)
+    end
+  end
 end
