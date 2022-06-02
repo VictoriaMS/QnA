@@ -4,6 +4,7 @@ class Question < ApplicationRecord
   has_many :comments, as: :commentable
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachable, inverse_of: :attachable
+  has_many :question_subscribes, dependent: :destroy
 
   belongs_to :user
   
