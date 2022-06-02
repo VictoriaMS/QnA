@@ -30,6 +30,8 @@ class Answer < ApplicationRecord
   private 
 
   def send_notification
-    NotificationMailer.new_answer(self).deliver_later
+    question.question_subscribes.each do |subscribe|
+      NotificationMailer.for_subscribers(subscribe.user, self).deliver_later
+    end
   end
 end

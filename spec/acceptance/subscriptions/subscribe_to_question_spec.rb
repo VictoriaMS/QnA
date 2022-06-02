@@ -16,9 +16,8 @@ feature 'subscribe to question', %q{
 
     scenario 'subscribed user' do
       click_on 'subscribe to notifications of new answers'
-      click_on 'subscribe to notifications of new answers'
-
-      expect(page).to have_content 'You are already subscribed to this question'
+      
+      expect(page).to_not have_link 'subscribe to notifications of new answers'
     end
 
     scenario 'unsubscribed user' do 

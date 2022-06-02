@@ -108,7 +108,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#have_subscribes?' do 
+  describe '#have_subscribe?' do 
     let!(:user) { create(:user) }
     let!(:question) { create(:question) }
     let(:question_for_subscribe) { create(:question) }

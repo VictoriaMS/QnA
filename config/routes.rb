@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  
+  mount Sidekiq::Web => '/sedikeq'
+
   use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' } 
 
@@ -28,7 +32,7 @@ Rails.application.routes.draw do
       patch :update_best_answer, on: :member
     end
 
-    resources :question_subscribes, only: [:create], shallow: true
+    resources :question_subscribes, only: [:create, :destroy], shallow: true
   end
 
   
