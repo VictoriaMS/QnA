@@ -12,6 +12,7 @@ RSpec.describe DailyMailer, type: :mailer do
     end
 
     it "renders the body" do
+      binding.pry
       expect(mail.body.encoded).to match("Hi")
     end
   end

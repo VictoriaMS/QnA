@@ -9,7 +9,8 @@ RSpec.describe Answer, type: :model do
 
   it { should validate_presence_of :body }
 
-  let!(:question) { create(:question) }
+  let!(:user)     { create(:user) }
+  let!(:question) { create(:question, user: user) }
   let!(:answer)   { create(:answer, question: question) }
   let!(:answers)  { create_list(:answer, 2, question: question) }
   
@@ -24,5 +25,20 @@ RSpec.describe Answer, type: :model do
     answer.unmark_best!
     
     expect(question.answers.best_answer.count).to eq 0
+  end
+
+  describe 'sending notification of the new answer to the author of the question' do 
+    subject { build(:answer) }
+    
+    it 'send an email when creating an answer' do 
+      expect(NotificationMailer).to receive(:new_answer).with(subject).and_call_original
+      subject.save!
+    end
+
+    it 'does not send email when updating an answer' do 
+      subject.save!
+      expect(NotificationMailer).to_not receive(:new_answer).with(subject)
+      subject.update(body: '123')
+    end
   end
 end
