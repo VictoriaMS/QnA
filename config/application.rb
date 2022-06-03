@@ -13,6 +13,7 @@ module Qna
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.active_job.queue_adapter = :sidekiq
 
     config.action_cable.disable_request_forgery_protection = false
     config.generators do |g|

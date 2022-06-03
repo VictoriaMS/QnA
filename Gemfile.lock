@@ -81,6 +81,7 @@ GEM
       ssrf_filter (~> 1.0)
     case_transform (0.2)
       activesupport
+    chronic (0.10.2)
     cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (4.2.2)
@@ -92,6 +93,7 @@ GEM
     coffee-script-source (1.12.2)
     commonjs (0.2.7)
     concurrent-ruby (1.1.10)
+    connection_pool (2.2.5)
     crass (1.0.6)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
@@ -195,6 +197,8 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
@@ -275,6 +279,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.6.0)
     ref (2.0.0)
     regexp_parser (2.2.1)
     remotipart (1.4.4)
@@ -321,6 +326,15 @@ GEM
       tilt (>= 1.1, < 3)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
+    sidekiq (6.4.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
+    sinatra (2.2.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
+      tilt (~> 2.0)
     skim (0.10.0)
       coffee-script
       coffee-script-source (>= 1.2.0)
@@ -374,6 +388,10 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
+    whenever-test (1.0.1)
+      whenever
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -420,6 +438,8 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   shoulda-matchers
+  sidekiq
+  sinatra (>= 1.3.0)
   skim (~> 0.10.0)
   slim-rails
   spring
@@ -431,6 +451,8 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  whenever
+  whenever-test
 
 RUBY VERSION
    ruby 2.5.8p224

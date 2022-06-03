@@ -54,6 +54,9 @@ gem 'cancancan'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'sidekiq'
+gem 'whenever'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -88,6 +91,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'json_spec'
+  gem 'whenever-test'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

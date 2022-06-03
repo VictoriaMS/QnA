@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
   before_action :create_answer, only: :show
   before_action :save_user, only: :show
   before_action :save_question, only: :show
+  before_action :set_subscribe, only: :show
 
   after_action :publish_question, only: [:create ]
 
@@ -54,6 +55,10 @@ class QuestionsController < ApplicationController
       'questions',
       QuestionSerializer.new(@question).to_json
     )
+  end
+
+  def set_subscribe 
+    @subscribe = @question.question_subscribes.find_by(user_id: current_user.id) if current_user
   end
 
   def create_answer

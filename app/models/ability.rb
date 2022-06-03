@@ -29,7 +29,7 @@ class Ability
 
   def user_abilities
     guest_abilities
-    can :create, [Question, Answer, Comment] 
+    can :create, [Question, Answer, Comment, QuestionSubscribe] 
     can [:update, :destroy], [Question, Answer], user_id: user.id
     can [:voted_down, :voted_up], [Question, Answer] do  |votable| 
       !user.author_of?(votable) 

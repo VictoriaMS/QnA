@@ -12,6 +12,8 @@ class Answer < ApplicationRecord
 
   scope :best_answer, -> { where(best_answer: true) }
 
+  after_create :send_notification
+
   def mark_best!
     update(best_answer: true) 
   end
@@ -23,5 +25,13 @@ class Answer < ApplicationRecord
   def re_mark_best!
     question.answers.best_answer.first.unmark_best!
     self.mark_best!
+  end
+
+  private 
+
+  def send_notification
+    question.question_subscribes.each do |subscribe|
+      NotificationMailer.for_subscribers(subscribe.user, self).deliver_later
+    end
   end
 end

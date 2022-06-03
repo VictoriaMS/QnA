@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do 
   it { should have_many(:questions) }
   it { should have_many(:answers) }
+  it { should have_many(:question_subscribes).dependent(:destroy) }
 
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
@@ -104,6 +105,22 @@ RSpec.describe User, type: :model do
       it 'dont return the user' do 
         expect(User.find_by_auth(auth.provider, auth.uid)).to eq nil
       end
+    end
+  end
+
+  describe '#have_subscribe?' do 
+    let!(:user) { create(:user) }
+    let!(:question) { create(:question) }
+    let(:question_for_subscribe) { create(:question) }
+    let!(:subscribe) { QuestionSubscribe.create(user_id: user.id, question_id: question_for_subscribe.id) }
+
+
+    it 'retirns false' do 
+      expect(user).to be_have_subscribe(question_for_subscribe)
+    end
+
+    it 'returns true' do 
+      expect(user).to_not be_have_subscribe(question)
     end
   end
 end
