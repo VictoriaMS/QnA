@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  resource :search, only: :show
+
   concern :votable do
     patch :voted_up, on: :member 
     patch :voted_down, on: :member
@@ -34,8 +36,6 @@ Rails.application.routes.draw do
 
     resources :question_subscribes, only: [:create, :destroy], shallow: true
   end
-
-  
 
   resources :attachments, only: [:destroy]
   
