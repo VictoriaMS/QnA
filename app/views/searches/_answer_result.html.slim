@@ -1,0 +1,5 @@
+div.card
+  h3.card-text 
+    = link_to result.body, question_path(result.question)
+  div[class="raiting_#{result.id}"]
+    = result.raiting

@@ -25,6 +25,7 @@ html lang="en"
                 li= link_to 'Sign out', destroy_user_session_path, method: :delete
               - else 
                 li= link_to 'Sign in', new_user_session_path
+          = render 'searches/form'
 
     .container
       p.notice
