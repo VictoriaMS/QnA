@@ -60,7 +60,6 @@ gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
-gem 'therubyrhino'
 gem 'therubyracer', platforms: :ruby
 
 group :development, :test do
