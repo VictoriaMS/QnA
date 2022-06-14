@@ -38,7 +38,6 @@ gem 'devise'
 gem 'twitter-bootstrap-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'therubyracer'
-gem 'execjs'
 gem 'slim-rails'
 gem 'jquery-rails'  
 gem 'skim', '~>0.10.0'
@@ -61,7 +60,6 @@ gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
-gem 'therubyracer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
