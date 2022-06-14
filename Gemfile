@@ -63,6 +63,7 @@ gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'therubyracer', platforms: :ruby
 gem 'doorkeeper', '4.2.6'
+gem 'remotipart'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -73,7 +74,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara-webkit', '~> 1.15', '>= 1.15.1'
   gem 'carrierwave'
-  gem 'remotipart'
   gem 'cocoon'
   gem 'letter_opener'
   gem 'capybara-email'
