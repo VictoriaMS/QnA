@@ -458,7 +458,6 @@ DEPENDENCIES
   doorkeeper (= 4.2.6)
   dotenv
   dotenv-deployment
-  execjs
   factory_bot_rails
   gon
   jbuilder (~> 2.5)
