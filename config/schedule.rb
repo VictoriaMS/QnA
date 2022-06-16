@@ -15,6 +15,10 @@
 every 1.day do 
   runner "DailyDigestJob.perform_now"
 end
+
+every 60.minutes do 
+  rake 'ts:index'
+end
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
