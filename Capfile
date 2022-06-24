@@ -10,6 +10,10 @@ require 'capistrano/sidekiq'
 require 'whenever/capistrano'
 require 'capistrano3/unicorn'
 
+install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
+# Then select your service manager
+install_plugin Capistrano::Sidekiq::Systemd
+
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"
