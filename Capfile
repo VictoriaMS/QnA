@@ -14,7 +14,7 @@ install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
 # Then select your service manager
 install_plugin Capistrano::Sidekiq::Systemd
 
-sidekiq_pid: File.join('/home/deployer/qna/shared', 'tmp', 'pids', 'sidekiq.pid')
+sidekiq_pid: File.join('  home/deployer/qna/shared', 'tmp', 'pids', 'sidekiq.pid')
 
 # Load the SCM plugin appropriate to your project:
 #
