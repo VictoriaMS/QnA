@@ -1,5 +1,6 @@
 - if comment.persisted? 
-  blockquote
-    h5 = comment.body
+  - cache comment do 
+    blockquote
+      h5 = comment.body
 
   

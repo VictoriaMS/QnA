@@ -1,6 +1,5 @@
 :verbose: false
 :concurrency: 10
-:pidfile: /home/deployer/qna/shared/tmp/pids/sidekiq.pid
 :queues:
 - [critical, 2]
 - default
