@@ -4,7 +4,7 @@ strong
   p = answer.created_at
   p = answer.updated_at
   p = answer.user_id
-
+  p = answer.question_id
   p
     - if answer.attachments.any?
       = render 'attachments/attachments', resource: answer
