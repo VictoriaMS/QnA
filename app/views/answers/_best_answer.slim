@@ -1,6 +1,7 @@
 strong
   p Best answer #{answer.id}
   p = answer.body
+  p = answer.created_at
 
   p
     - if answer.attachments.any?
